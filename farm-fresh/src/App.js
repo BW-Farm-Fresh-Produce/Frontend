@@ -1,14 +1,16 @@
-import React from 'react';
+import React from "react";
 
-import Sample from "./components/sample";
+// import Sample from "./components/sample";
+import Consumer from "./components/Consumer";
 
 function App() {
-  return (
-    <div className="App">
-     <p>Farm Fresh</p>
-     <Sample />
-    </div>
-  );
+    return (
+        <div className="App">
+            <p>Farm Fresh</p>
+            {/* <Sample /> */}
+            <Consumer />
+        </div>
+    );
 }
 
 export default App;
