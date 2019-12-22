@@ -1,12 +1,11 @@
 import React from 'react';
-
-import Sample from "./components/sample";
+import CustomerNav from './components/CustomerNav';
 
 function App() {
   return (
     <div className="App">
      <p>Farm Fresh</p>
-     <Sample />
+     <CustomerNav />
     </div>
   );
 }
