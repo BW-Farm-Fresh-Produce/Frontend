@@ -1,13 +1,13 @@
 import React from 'react';
-import CustomerNav from './components/CustomerNav';
+//import Sample from "./components/sample";
 
 function App() {
   return (
     <div className="App">
-     <p>Farm Fresh</p>
-     <CustomerNav />
+        <p>Farm Fresh</p>
+        {/* <Sample /> */}
+        <Consumer />
     </div>
-  );
-}
-
+);
+  }
 export default App;
