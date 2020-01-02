@@ -1,68 +1,43 @@
 import React from 'react'
 import styled from "styled-components";
-import { useSpring, animated, config } from "react-spring";
-
 import Brand from "./Brand";
-import BurgerMenu from "./BurgerMenu";
-import CollapseMenu from "./CollapseMenu";
-
 import PrivateRoute from '../navbar/PrivateRoute';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-
+import ShoppingCart from '../ShoppingCart';
+import LoginForm from '../LoginForm';
 
 
 
 const Navbar = (props) => {
-  const barAnimation = useSpring({
-    from: { transform: 'translate3d(0, -10rem, 0)' },
-    transform: 'translate3d(0, 0, 0)',
-  });
-
-  const linkAnimation = useSpring({
-    from: { transform: 'translate3d(0, 30px, 0)', opacity: 0 },
-    to: { transform: 'translate3d(0, 0, 0)', opacity: 1 },
-    delay: 800,
-    config: config.wobbly,
-  });
-
   return (
     <>
-      <NavBar style={barAnimation}>
-        <FlexContainer>
-          <Brand onClick={'/Home'}/>
-
+    <NavBar>
+      <FlexContainer>
+        <Brand onClick={'/'}/>
     <Router>
-          <NavLinks style={linkAnimation}>
-          <Link to="/cart">Cart</Link>
-          <Link to="/login">Logout</Link>
-          </NavLinks>
- {/* <Switch>
-        {" "}
-        <PrivateRoute exact path="/login" component={} />
-        <Route path="/login" component={} />
-        <Route component={} />
-      </Switch>  */}
+    <NavLinks >
+  
+      <Link to="/cart">Cart </Link>
+      {/* Cart <span>{cart.length}</span> */}
+      <Link to="/logout">Logout</Link>
+      <Link to="/inventory">Inventory</Link>
+    </NavLinks>
+
+    <Route exact path='/logout' component={LoginForm}/>
+    <Route path='/cart'/>
+    {/* <PrivateRoute to="/inventory"/> */}
     </Router>
 
-          <BurgerWrapper>
-            <BurgerMenu
-              navbarState={props.navbarState} 
-              handleNavbar={props.handleNavbar}
-            />
-          </BurgerWrapper>
-        </FlexContainer>
-      </NavBar>
-      <CollapseMenu 
-        navbarState={props.navbarState} 
-        handleNavbar={props.handleNavbar}
-      />
+     </FlexContainer>
+    </NavBar>
+  
    </>
-  )
-}
+  )};
+
 
 export default Navbar
 
-const NavBar = styled(animated.nav)`
+const NavBar = styled.nav`
   position: fixed;
   width: 100%;
   top: 0;
@@ -81,7 +56,7 @@ const FlexContainer = styled.div`
   height: 5rem;
 `;
 
-const NavLinks = styled(animated.ul)`
+const NavLinks = styled.nav`
   justify-self: end;
   list-style-type: none;
   margin: auto 0;
@@ -104,13 +79,5 @@ const NavLinks = styled(animated.ul)`
     @media (max-width: 768px) {
       display: none;
     }
-  }
-`;
-
-const BurgerWrapper = styled.div`
-  margin: auto 0;
-
-  @media (min-width: 769px) {
-    display: none;
   }
 `;

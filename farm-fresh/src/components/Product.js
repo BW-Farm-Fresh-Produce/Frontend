@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+
+
 import { IoIosAddCircleOutline } from "react-icons/io";
 
 const Card = styled.div`
@@ -61,6 +63,7 @@ const ProductName = styled.h2`
 
 // props needed --> product.name, product.available_quantity, product.price, product.farmer__farm_name, product.farmer_farm_location
 export default props => {
+
     return (
         <Card>
             <AddIcon />

@@ -1,16 +1,19 @@
 import React from 'react';
 import Consumer from './components/Consumer';
-import Navigation from './components/navbar/Navigation';
+import NavBar from './components/navbar/NavBar';
 
 function App() {
+    
     return (
       <div className="App">
-          <Navigation/>
-       
+          <NavBar/> 
           <Consumer />
       </div>
+    
 );
   }
+
+
 export default App;
 
 
