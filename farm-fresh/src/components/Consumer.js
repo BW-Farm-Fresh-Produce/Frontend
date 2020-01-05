@@ -1,6 +1,4 @@
 // Consumer "home" page after logging in
-//
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
@@ -70,6 +68,7 @@ export default props => {
             {products.length !== 0 &&
                 products.map(product => (
                     <Product
+                     
                         key={product.product_id}
                         name={product.name}
                         available_quantity={product.available_quantity}

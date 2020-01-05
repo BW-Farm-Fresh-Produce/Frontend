@@ -19,9 +19,9 @@ const ShoppingCart = props => {
 	};
 
 	return (
-		<div className="shopping-cart">
-			{cart.map(item => (
-				<Item key={item.name} {...item} />
+		<div>
+			{cart.map(product => (
+				<Item key={product.product_id} {...product} />
 			))}
 
 			<div className="shopping-cart__checkout">
