@@ -65,7 +65,13 @@ const FomrikLoginForm = withFormik ({
     password: Yup.string().required("Password Required")
     })
 
-    handleSubmit
+    handleSubmit(values, {setStatus,resetForm}){
+        axios
+            .post("url", values)
+            .then(res => {
+                setStatus(res.data);
+            })
+    }
 })
 
 
