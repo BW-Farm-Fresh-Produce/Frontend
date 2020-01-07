@@ -79,6 +79,7 @@ const Button = styled.div`
     justify-content: center;
     align-items: center;
     margin-bottom: 1rem;
+    cursor: pointer;
 `;
 
 const Modal = ({ functionality, item }) => {
