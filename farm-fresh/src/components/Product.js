@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 
 import { IoIosAddCircleOutline } from "react-icons/io";
+import { MdEdit } from "react-icons/md";
 
 const Card = styled.div`
     background: #ffffff;
@@ -17,6 +18,14 @@ const Card = styled.div`
 `;
 
 const AddIcon = styled(IoIosAddCircleOutline)`
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 1.75rem;
+    cursor: pointer;
+`;
+
+const EditIcon = styled(MdEdit)`
     position: absolute;
     right: 10px;
     top: 10px;
@@ -62,24 +71,44 @@ const ProductName = styled.h2`
 `;
 
 // props needed --> product.name, product.available_quantity, product.price, product.farmer__farm_name, product.farmer_farm_location
-export default props => {
+export default ({
+    product,
+    setAddItem,
+    setEditItem,
+    setModalOpen,
+    modalOpen
+}) => {
     return (
 
         <Card>
-            <AddIcon onClick={() => props.addItem(props.product)}/>
+            {setAddItem ? (
+                <AddIcon
+                    onClick={() => {
+                        setAddItem(product);
+                        setModalOpen(!modalOpen);
+                    }}
+                />
+            ) : (
+                <EditIcon
+                    onClick={() => {
+                        setEditItem(product);
+                        setModalOpen(!modalOpen);
+                    }}
+                />
+            )}
             <ImageWrapper>
                 <img/>
             </ImageWrapper>
             <TextContainer>
                 <InfoWrapper>
-                    <ProductName>{props.name}</ProductName>
-                    <p>{props.available_quantity}</p>
-                    <p>{props.price}</p>
+                    <ProductName>{product.name}</ProductName>
+                    <p>{product.available_quantity}</p>
+                    <p>{product.price}</p>
                 </InfoWrapper>
                 <InfoWrapper>
-                    <p>{props.farm}</p>
-                    <p>{props.farm_location_street}</p>
-                    <p>{props.farm_location_city}</p>
+                    <p>{product.farm}</p>
+                    <p>{product.farm_location_street}</p>
+                    <p>{product.farm_location_city}</p>
                 </InfoWrapper>
             </TextContainer>
         </Card>

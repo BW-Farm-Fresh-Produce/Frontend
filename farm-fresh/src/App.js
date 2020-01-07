@@ -1,15 +1,6 @@
-import React, {useState} from 'react';
- //import Consumer from './components/Consumer';
-import NavBar from './components/navigation/NavBar';
-import { Route } from 'react-router-dom';
-import ShoppingCart from './components/ShoppingCart';
-import data from './data';
-import Products from './components/Products';
-//Context
-import CartContext from './contexts/CartContext';
-import ProductContext from './contexts/ProductContext';
-
-
+import React from 'react';
+import Consumer from './components/Consumer';
+import Navigation from './components/navbar/Navigation';
 
 function App() {
 	const [products] = useState(data);
@@ -34,7 +25,4 @@ function App() {
 );
   }
 
-
 export default App;
-
-
