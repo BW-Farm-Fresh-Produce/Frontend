@@ -47,16 +47,29 @@ const LoginForm = ({values,errors,touched,status}) => {
                         placeholder = "Password"
                     />
                 </label>
+                <button type ="submit">Sign In</button>
             </Form>
         </div>
     );
 };
 
 const FomrikLoginForm = withFormik ({
+    mapPropsToValues(props){
+        return {
+            name : props.userName || "",
+            password : props.password ||"",
+        }
+    }
+    validationSchema: Yup.object().shape({
+    name: Yup.string().required("Username Required"),
+    password: Yup.string().required("Password Required")
+    })
 
+    handleSubmit
 })
-// Needs Encryption
 
+
+// Needs Encryption
 // Username
 // Password
 // Sign in button
