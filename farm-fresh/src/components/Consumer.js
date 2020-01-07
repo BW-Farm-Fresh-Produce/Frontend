@@ -7,7 +7,7 @@ import styled from "styled-components";
 
 import Product from "./Product";
 
-const CardsContainer = styled.div`
+export const CardsContainer = styled.div`
     display: grid;
     width: calc(100% - 375px);
     max-width: 900px;
@@ -18,7 +18,7 @@ const CardsContainer = styled.div`
     margin: 0 auto;
 `;
 
-const ModalBg = styled.div`
+export const ModalBg = styled.div`
     width: 100%;
     height: 100%;
     background: rgba(109, 109, 109, 0.5);
@@ -29,7 +29,7 @@ const ModalBg = styled.div`
     align-items: center;
 `;
 
-const ModalFormContainer = styled.div`
+export const ModalFormContainer = styled.div`
     background: #ffffff;
     border-radius: 10px;
     width: 40%;
@@ -39,7 +39,7 @@ const ModalFormContainer = styled.div`
     margin: 0 auto;
 `;
 
-const FormTitle = styled.h3`
+export const FormTitle = styled.h3`
     text-align: center;
 `;
 

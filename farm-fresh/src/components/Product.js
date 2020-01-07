@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { IoIosAddCircleOutline } from "react-icons/io";
+import { MdEdit } from "react-icons/md";
 
 const Card = styled.div`
     background: #ffffff;
@@ -15,6 +16,14 @@ const Card = styled.div`
 `;
 
 const AddIcon = styled(IoIosAddCircleOutline)`
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 1.75rem;
+    cursor: pointer;
+`;
+
+const EditIcon = styled(MdEdit)`
     position: absolute;
     right: 10px;
     top: 10px;
@@ -61,15 +70,30 @@ const ProductName = styled.h2`
 `;
 
 // props needed --> product.name, product.available_quantity, product.price, product.farmer__farm_name, product.farmer_farm_location
-export default ({ product, setAddItem, setModalOpen, modalOpen }) => {
+export default ({
+    product,
+    setAddItem,
+    setEditItem,
+    setModalOpen,
+    modalOpen
+}) => {
     return (
         <Card>
-            <AddIcon
-                onClick={() => {
-                    setAddItem(product);
-                    setModalOpen(!modalOpen);
-                }}
-            />
+            {setAddItem ? (
+                <AddIcon
+                    onClick={() => {
+                        setAddItem(product);
+                        setModalOpen(!modalOpen);
+                    }}
+                />
+            ) : (
+                <EditIcon
+                    onClick={() => {
+                        setEditItem(product);
+                        setModalOpen(!modalOpen);
+                    }}
+                />
+            )}
             <ImageWrapper>
                 <img />
             </ImageWrapper>

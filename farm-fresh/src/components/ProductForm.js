@@ -3,19 +3,17 @@ import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 
-// for Farmers
+// for Farmers to add/edit an item
 const ProductForm = ({
     values,
     touched,
     errors,
+    status,
     handleChange,
     handleBlur,
     handleSubmit
 }) => {
-    // product name
-    // total max quantity
-    // price
-
+    // for testing to see if the form is working
     const [products, setProducts] = useState([]);
 
     console.log("errors:", errors);
@@ -74,13 +72,13 @@ const FormikProductForm = withFormik({
         };
     },
     validationSchema: Yup.object().shape({
-        name: Yup.string().required(),
+        name: Yup.string().required("Name is required"),
         quantity: Yup.number()
             .positive()
-            .required(),
+            .required("Positive quantity is required"),
         price: Yup.number()
             .positive()
-            .required()
+            .required("Price greater than $0 is required")
     }),
     handleSubmit(values, { setStatus, resetForm }) {
         console.log("Submitting form: ", values);
