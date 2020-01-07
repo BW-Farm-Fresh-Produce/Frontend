@@ -61,23 +61,28 @@ const ProductName = styled.h2`
 `;
 
 // props needed --> product.name, product.available_quantity, product.price, product.farmer__farm_name, product.farmer_farm_location
-export default props => {
+export default ({ product, setAddItem, setModalOpen, modalOpen }) => {
     return (
         <Card>
-            <AddIcon />
+            <AddIcon
+                onClick={() => {
+                    setAddItem(product);
+                    setModalOpen(!modalOpen);
+                }}
+            />
             <ImageWrapper>
                 <img />
             </ImageWrapper>
             <TextContainer>
                 <InfoWrapper>
-                    <ProductName>{props.name}</ProductName>
-                    <p>{props.available_quantity}</p>
-                    <p>{props.price}</p>
+                    <ProductName>{product.name}</ProductName>
+                    <p>{product.available_quantity}</p>
+                    <p>{product.price}</p>
                 </InfoWrapper>
                 <InfoWrapper>
-                    <p>{props.farm}</p>
-                    <p>{props.farm_location_street}</p>
-                    <p>{props.farm_location_city}</p>
+                    <p>{product.farm}</p>
+                    <p>{product.farm_location_street}</p>
+                    <p>{product.farm_location_city}</p>
                 </InfoWrapper>
             </TextContainer>
         </Card>
