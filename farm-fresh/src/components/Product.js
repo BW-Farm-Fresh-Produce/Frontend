@@ -44,7 +44,6 @@ const TextContainer = styled.div`
     padding: 0 10px;
     text-align: left;
     line-height: 1.5rem;
-
     h2,
     p {
         margin: 0;
