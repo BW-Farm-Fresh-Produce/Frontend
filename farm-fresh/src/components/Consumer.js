@@ -16,6 +16,7 @@ export const CardsContainer = styled.div`
     grid-gap: 50px;
     text-align: center;
     margin: 0 auto;
+    margin-top:150px;
 `;
 
 export const ModalBg = styled.div`
