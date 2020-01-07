@@ -14,13 +14,3 @@
 // Username
 // Password
 // Sign in button
-
-import React from 'react';
-
-const LoginForm = () => {
-  return (
-    <h1> Login Page</h1>
-  )
-}
-
-export default LoginForm;
