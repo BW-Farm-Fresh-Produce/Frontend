@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
+import { IoIosAddCircleOutline } from "react-icons/io";
 import Product from "./Product";
 import {
     CardsContainer,
@@ -11,6 +12,11 @@ import {
     FormTitle
 } from "./Consumer";
 import FormikProductForm from "./ProductForm";
+
+const AddIcon = styled(IoIosAddCircleOutline)`
+    cursor: pointer;
+    font-size: 1.75rem;
+`;
 
 const Modal = ({ functionality, item }) => {
     return (
@@ -60,8 +66,14 @@ export default () => {
     // }, [])
 
     return (
-        <>
-            {modalOpen && <Modal functionality="Edit" item={editItem} />}
+        <div>
+            {modalOpen && <Modal functionality="Update" item={editItem} />}
+            <AddIcon
+                onClick={() => {
+                    setModalOpen(!modalOpen);
+                    setEditItem({ name: "inventory" }); // work around to be able to reuse Modal component
+                }}
+            />
             <CardsContainer>
                 {inventory.length !== 0 &&
                     inventory.map(product => (
@@ -74,6 +86,6 @@ export default () => {
                         />
                     ))}
             </CardsContainer>
-        </>
+        </div>
     );
 };
