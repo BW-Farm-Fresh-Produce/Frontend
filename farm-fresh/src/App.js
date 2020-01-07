@@ -1,27 +1,15 @@
 import React from 'react';
 import Consumer from './components/Consumer';
-import Navigation from './components/navbar/Navigation';
+import NavBar from './components/navigation/NavBar';
+
 
 function App() {
-	const [products] = useState(data);
-	const [cart, setCart] = useState([]);
-
-
-	const addItem = item => {
-		setCart([...cart, item]);
-	};
-    
     return (
-      < ProductContext.Provider value={{ products, addItem }}>
-		 < CartContext.Provider value={cart}>
       <div className="App">
-      <NavBar/> 
-      <Route exact path="/" component={Products} />
-			<Route path="/cart" component={ShoppingCart} />
-      {/* <PrivateRoute to="/inventory"/> */}
+          <NavBar/>
+       
+          <Consumer />
       </div>
-      </CartContext.Provider>
-			</ProductContext.Provider>
 );
   }
 
