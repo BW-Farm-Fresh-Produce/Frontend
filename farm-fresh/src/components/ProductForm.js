@@ -57,6 +57,18 @@ const ProductForm = ({
 }) => {
     // for testing to see if the form is working
     const [products, setProducts] = useState([]);
+    const [product, setProduct] = useState({
+        name: "",
+        quantity: 0,
+        quantity_type: "",
+        price: 0
+    });
+
+    const handleChange = e => {
+        let value = e.target.value;
+
+        setProduct({ ...product, [e.target.name]: value });
+    };
 
     console.log("errors:", errors);
     console.log("touched:", touched);
@@ -136,6 +148,8 @@ const FormikProductForm = withFormik({
     }),
     handleSubmit(values, { setStatus, resetForm }) {
         console.log("Submitting form: ", values);
+        setProducts(...products, product);
+
         axios
             .post("https://reqres.in/api/users/", values)
             .then(res => {

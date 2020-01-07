@@ -94,7 +94,7 @@ export default ({
                 />
             )}
             <ImageWrapper>
-                <img />
+                <img alt={product.name} />
             </ImageWrapper>
             <TextContainer>
                 <InfoWrapper>
