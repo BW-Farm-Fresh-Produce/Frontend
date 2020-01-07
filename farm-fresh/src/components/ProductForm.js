@@ -12,7 +12,8 @@ const FormGrid = styled.div`
 
 const Label = styled.label`
     justify-self: end;
-    align-self: center;
+    align-self: start;
+    padding: 5px 0;
 `;
 
 const Input = styled(Field)`
@@ -38,6 +39,10 @@ const Button = styled.button`
     font-size: 1rem;
     cursor: pointer;
     margin: 1rem auto;
+`;
+
+const Error = styled.p`
+    color: red;
 `;
 
 // for Farmers to add/edit an item
@@ -82,26 +87,32 @@ const ProductForm = ({
         <Form>
             <FormGrid>
                 <Label htmlFor="name">Product name: </Label>
-                <Input
-                    type="text"
-                    name="name"
-                    placeholder="Product name"
-                />{" "}
-                {touched.name && errors.name && <p>{errors.name}</p>}
+                <div>
+                    <Input type="text" name="name" placeholder="Product name" />{" "}
+                    {touched.name && errors.name && (
+                        <Error>{errors.name}</Error>
+                    )}
+                </div>
                 <Label htmlFor="quantity">Available quantity: </Label>
-                <Input
-                    type="number"
-                    name="quantity"
-                    placeholder="Max available quantity"
-                />{" "}
-                {touched.quantity && errors.quantity && (
-                    <p>{errors.quantity}</p>
-                )}
+                <div>
+                    <Input
+                        type="number"
+                        name="quantity"
+                        placeholder="Max available quantity"
+                    />{" "}
+                    {touched.quantity && errors.quantity && (
+                        <Error>{errors.quantity}</Error>
+                    )}
+                </div>
                 <Label htmlFor="price">Price: </Label>
-                <Input type="number" name="price" placeholder="Price" />{" "}
-                {touched.price && errors.price && <p>{errors.price}</p>}
+                <div>
+                    <Input type="number" name="price" placeholder="Price" />{" "}
+                    {touched.price && errors.price && (
+                        <Error>{errors.price}</Error>
+                    )}
+                </div>
             </FormGrid>
-            <Button type="submit">Add item</Button>
+            <Button type="submit">Update inventory</Button>
         </Form>
     );
 };
