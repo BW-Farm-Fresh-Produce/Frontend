@@ -38,21 +38,17 @@ const AddIcon = styled(IoIosAddCircleOutline)`
 `;
 
 const Modal = ({ functionality, item, productId, setModalOpen }) => {
-    // let productName = item.name;
-
-    // if (item.name === "inventory") {
-    //     productName = "";
-    // }
-
     return (
         <ModalBg>
             <ModalFormContainer>
                 <CloseIcon onClick={() => setModalOpen(false)} />
-                {
+                {item.name ? (
                     <FormTitle>
                         {functionality} {item.name}{" "}
                     </FormTitle>
-                }
+                ) : (
+                    <FormTitle>{functionality} inventory </FormTitle>
+                )}
                 <FormikProductForm {...item} />
             </ModalFormContainer>
         </ModalBg>
@@ -115,13 +111,13 @@ export default () => {
                 <AddIcon
                     onClick={() => {
                         setModalOpen(!modalOpen);
-                        setEditItem({}); // work around to be able to reuse Modal component
+                        setEditItem({}); // reset editItem
                     }}
                 />
                 <p
                     onClick={() => {
                         setModalOpen(!modalOpen);
-                        setEditItem({ name: "inventory" }); // work around to be able to reuse Modal component
+                        setEditItem({}); // reset editItem
                     }}
                 >
                     Add item

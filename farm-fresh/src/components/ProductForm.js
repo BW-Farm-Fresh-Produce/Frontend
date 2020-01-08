@@ -18,12 +18,16 @@ const Label = styled.label`
 
 const Input = styled(Field)`
     width: 200px;
+    height: 30px;
     border: 1px solid #ffffff;
-    border-radius: 10px;
+    border-radius: 5px;
     font-family: inherit;
     font-size: 100%;
     padding: 5px;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.25);
+    box-sizing: border-box;
+    background: white;
+    margin-left: ${props => (props.isPrice ? "0.5rem" : "1rem")};
 `;
 
 const ButtonContainer = styled.div`
@@ -89,12 +93,6 @@ const ProductForm = ({
         quantity_unit: "",
         price: 0
     });
-
-    // const handleChange = e => {
-    //     let value = e.target.value;
-
-    //     setProduct({ ...product, [e.target.name]: value });
-    // };
 
     const handleDelete = ({ productId }) => {
         // needs to delete item from database
@@ -167,12 +165,18 @@ const ProductForm = ({
                 <Label htmlFor="quantity_unit">Unit: </Label>
                 <div>
                     <Input
-                        type="text"
+                        as="select"
                         name="quantity_unit"
-                        placeholder="lb, bushel, quart, etc."
-                        value={values.quantity_unit}
                         onChange={handleChange}
-                    />{" "}
+                    >
+                        <option disabled>Choose a unit</option>
+                        <option value="lb">lb</option>
+                        <option value="quart">quart</option>
+                        <option value="pint">pint</option>
+                        <option value="gallon">gallon</option>
+                        <option value="peck">peck</option>
+                        <option value="bushel">bushel</option>
+                    </Input>
                     {touched.quantity_unit && errors.quantity_unit && (
                         <Error>{errors.quantity_unit}</Error>
                     )}
@@ -181,12 +185,14 @@ const ProductForm = ({
                 <div>
                     $
                     <Input
+                        isPrice={true}
                         type="number"
                         name="price"
                         placeholder="Price"
                         value={values.price}
                         onChange={handleChange}
                     />{" "}
+                    / {values.quantity_unit}
                     {touched.price && errors.price && (
                         <Error>{errors.price}</Error>
                     )}
@@ -207,7 +213,7 @@ const FormikProductForm = withFormik({
         return {
             name: props.name || "",
             quantity: props.quantity || 0,
-            quantity_unit: props.quantity_unit || "",
+            quantity_unit: props.quantity_unit || "unit",
             price: props.price || 0
         };
     },
@@ -238,7 +244,7 @@ const FormikProductForm = withFormik({
         //     )
         //     .then(res => {
         //         console.log("Item successfully submitted: ", res);
-        //         alert("Invenvoty successfully updated");
+        //         alert("Inventory successfully updated");
         //         setStatus(res.data);
         //         resetForm();
         //     })
