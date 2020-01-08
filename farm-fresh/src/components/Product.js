@@ -72,11 +72,11 @@ const ProductName = styled.h2`
 
 // props needed --> product.name, product.available_quantity, product.price, product.farmer__farm_name, product.farmer_farm_location
 export default ({
-    product,
-    setAddItem,
-    setEditItem,
-    setModalOpen,
-    modalOpen
+     product,
+     setAddItem,
+     setEditItem,
+     setModalOpen,
+     modalOpen
 }) => {
     return (
 
@@ -86,6 +86,7 @@ export default ({
                     onClick={() => {
                         setAddItem(product);
                         setModalOpen(!modalOpen);
+            
                     }}
                 />
             ) : (

@@ -81,7 +81,7 @@ const Button = styled.div`
     cursor: pointer;
 `;
 
-const Modal = ({ functionality, item }) => {
+const Modal = ({ functionality, item}) => {
     const [cost, setCost] = useState(0);
     const [quantity, setQuantity] = useState(0);
 
@@ -123,7 +123,7 @@ const Modal = ({ functionality, item }) => {
                     <p>${cost}</p>
                     {/* </div> */}
                 </ModalGrid>
-                <Button onClick={() => console.log("Clicked Add to Cart")}>
+                <Button >
                     {functionality} to Cart
                 </Button>
             </ModalFormContainer>
@@ -193,6 +193,8 @@ export default props => {
                             setAddItem={setAddItem}
                             setModalOpen={setModalOpen}
                             modalOpen={modalOpen}
+                        
+                            
                             // name={product.name}
                             // available_quantity={product.available_quantity}
                             // price={product.price}

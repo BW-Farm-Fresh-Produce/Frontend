@@ -15,7 +15,7 @@ const NavBar = () => {
           <Router>
             <NavLinks>
               <Link to="/cart"> Cart </Link>
-              {/* <span>{cart.length}</span> */}
+             {/* <p>{cart.length}</p> */}
               <Link to="/logout">Logout</Link>
               <Link to="/inventory">Inventory</Link>
             </NavLinks>
