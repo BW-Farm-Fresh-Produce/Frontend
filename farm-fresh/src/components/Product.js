@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+
+
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { MdEdit } from "react-icons/md";
 
@@ -70,19 +72,21 @@ const ProductName = styled.h2`
 
 // props needed --> product.name, product.quantity, product.price, product.farmer__farm_name, product.farmer_farm_location
 export default ({
-    product,
-    setAddItem,
-    setEditItem,
-    setModalOpen,
-    modalOpen
+     product,
+     setAddItem,
+     setEditItem,
+     setModalOpen,
+     modalOpen
 }) => {
     return (
+
         <Card>
             {setAddItem ? (
                 <AddIcon
                     onClick={() => {
                         setAddItem(product);
                         setModalOpen(!modalOpen);
+            
                     }}
                 />
             ) : (

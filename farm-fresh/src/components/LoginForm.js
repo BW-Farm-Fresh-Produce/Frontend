@@ -19,7 +19,7 @@ import * as Yup from "yup";
 import axios from "axios";
 
 const LoginForm = ({values,errors,touched,status}) => {
-
+    
     const [user,setUser] =useState([])
     // local stat that holds the succesful form Submission.
     useEffect(()=>{
@@ -43,7 +43,7 @@ const LoginForm = ({values,errors,touched,status}) => {
                 </label>
                 <label>
                     Password
-                    <Field 
+                    <Field
                         id="password"
                         type ="text"
                         name = "password"
@@ -79,11 +79,11 @@ const FomrikLoginForm = withFormik ({
                 setStatus(res.data);
                 resetForm();
             })
-    }
-})(LoginForm);
+    } 
+  })(LoginForm);
 
 
-// Needs Encryption
+  // Needs Encryption
 // Username
 // Password
 // Sign in button

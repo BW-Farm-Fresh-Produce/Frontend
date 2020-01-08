@@ -1,6 +1,4 @@
 // Consumer "home" page after logging in
-//
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
@@ -118,6 +116,7 @@ const Button = styled.div`
     cursor: pointer;
 `;
 
+
 const Modal = ({ functionality, item, setModalOpen }) => {
     const [cost, setCost] = useState(0);
     const [quantity, setQuantity] = useState(0);
@@ -153,7 +152,7 @@ const Modal = ({ functionality, item, setModalOpen }) => {
                     <Label>Total cost: </Label>
                     <p>${cost}</p>
                 </ModalGrid>
-                <Button onClick={() => console.log("Clicked Add to Cart")}>
+                <Button >
                     {functionality} to Cart
                 </Button>
             </ModalFormContainer>
@@ -198,7 +197,7 @@ export default props => {
             farm_location_city: "Farmington, NY 12346"
         }
     ]);
-    const [cartItems, setCartItems] = useState([]);
+
     const [addItem, setAddItem] = useState({});
     const [modalOpen, setModalOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");

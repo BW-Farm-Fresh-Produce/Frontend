@@ -1,18 +1,19 @@
-import React from "react";
 
-import Farmer from "./components/Farmer";
-import Consumer from "./components/Consumer";
-import Navigation from "./components/navbar/Navigation";
+import React from 'react';
+import Consumer from './components/Consumer';
+import NavBar from './components/navigation/NavBar';
+
+
 
 function App() {
     return (
-        <div className="App">
-            <Navigation />
-
-            {/* <Consumer /> */}
-            <Farmer />
-        </div>
-    );
-}
+      <div className="App">
+          <NavBar/>
+          {/* <LoginForm/> */}
+          <Consumer />
+      </div>
+);
+  }
 
 export default App;
+
