@@ -4,25 +4,49 @@ import axios from "axios";
 import styled from "styled-components";
 
 import Product from "./Product";
+import { FiSearch } from "react-icons/fi";
+
+const SearchBarContainer = styled.div`
+    width: 80%;
+    max-width: 960px;
+    margin: 110px auto 0;
+    text-align: left;
+`;
+
+const SearchIcon = styled(FiSearch)`
+    vertical-align: middle;
+    margin-right: 0.5rem;
+    font-size: 1.5rem;
+`;
+
+const SearchBar = styled.input`
+    box-sizing: border-box;
+    padding: 5px 10px;
+    border-radius: 8px;
+    border: 1px solid gray;
+    font-size: 1rem;
+`;
 
 export const CardsContainer = styled.div`
     display: grid;
-    width: calc(100% - 375px);
-    max-width: 900px;
+    width: 80%;
+    max-width: 960px;
     grid-template-columns: repeat(auto-fill, 250px);
     grid-template-rows: repeat(auto-fill, minmax(100px, 1fr));
     grid-gap: 50px;
     text-align: center;
     margin: 0 auto;
-    margin-top:150px;
+    margin-top: 1.5rem;
 `;
 
 export const ModalBg = styled.div`
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     background: rgba(109, 109, 109, 0.5);
     z-index: 2;
     position: absolute;
+    top: 0;
+    left: 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -98,11 +122,8 @@ const Modal = ({ functionality, item}) => {
                     {functionality} {item.name}
                 </FormTitle>
                 <ModalGrid>
-                    {/* <div> */}
                     <Label>Product name: </Label>
                     <p>{item.name}</p>
-                    {/* </div> */}
-                    {/* <div> */}
                     <Labe htmlFor="quantity">Quantity: </Labe>
                     <Input
                         type="number"
@@ -113,15 +134,10 @@ const Modal = ({ functionality, item}) => {
                         max={item.available_quantity}
                         onChange={e => setQuantity(e.target.value)}
                     />
-                    {/* </div> */}
-                    {/* <div> */}
                     <Label>Price: </Label>
                     <p>${item.price} / lb</p>
-                    {/* </div> */}
-                    {/* <div> */}
                     <Label>Total cost: </Label>
                     <p>${cost}</p>
-                    {/* </div> */}
                 </ModalGrid>
                 <Button >
                     {functionality} to Cart
@@ -132,16 +148,13 @@ const Modal = ({ functionality, item}) => {
 };
 
 export default props => {
-    const [cartItems, setCartItems] = useState([]);
-    const [addItem, setAddItem] = useState({});
-    const [modalOpen, setModalOpen] = useState(false);
-
     // set some fake data for now
     const [products, setProducts] = useState([
         {
             product_id: 4321,
             name: "Red grapes",
-            available_quantity: "25lbs",
+            available_quantity: 25,
+            quantity_type: "lb",
             price: 1.25,
             farmer_id: 1234,
             farm: "Old McDonald's",
@@ -151,7 +164,8 @@ export default props => {
         {
             product_id: 4322,
             name: "Strawberries",
-            available_quantity: "20lbs",
+            available_quantity: 20,
+            quantity_type: "lb",
             price: 1.0,
             farmer_id: 1234,
             farm: "Old McDonald's",
@@ -161,7 +175,8 @@ export default props => {
         {
             product_id: 4323,
             name: "Apples",
-            available_quantity: "30 bushels",
+            available_quantity: 30,
+            quantity_type: "bushel",
             price: 3.0,
             farmer_id: 1234,
             farm: "Farmer Joe's",
@@ -169,38 +184,64 @@ export default props => {
             farm_location_city: "Farmington, NY 12346"
         }
     ]);
+    const [cartItems, setCartItems] = useState([]);
+    const [addItem, setAddItem] = useState({});
+    const [modalOpen, setModalOpen] = useState(false);
+    const [searchTerm, setSearchTerm] = useState("");
+    const [searchResults, setSearchResults] = useState(products);
 
-    // when adding search bar, useEffect dependency will need to be updated so that the visible products change
     useEffect(() => {
         // API call to get available products
-        // axios
-        //     .get()
-        //     .then(response => {
-        //         console.log("Response: ", response);
-        //     })
-        //     .catch(err => console.log("Error: ", err));
+        axios
+            .get("https://farm-life.herokuapp.com/farmer/product/products")
+            .then(response => {
+                console.log("Response: ", response);
+                setProducts(response.product);
+                setSearchResults(response.product);
+            })
+            .catch(err => console.log("Error: ", err));
     }, []);
+
+    // for search bar
+    useEffect(() => {
+        const results = products.filter(item =>
+            item.farm_location_city.toLowerCase().includes(searchTerm)
+        );
+
+        setSearchResults(results);
+    }, [searchTerm]);
+
+    const handleSearchBarChange = e => {
+        setSearchTerm(e.target.value);
+    };
 
     return (
         <>
             {modalOpen && <Modal functionality="Add" item={addItem} />}
+            <SearchBarContainer>
+                <form>
+                    <label htmlFor="city">
+                        <SearchIcon />
+                    </label>
+                    <SearchBar
+                        id="city"
+                        type="text"
+                        name="textfield"
+                        placeholder="Search by city"
+                        value={searchTerm}
+                        onChange={handleSearchBarChange}
+                    />
+                </form>
+            </SearchBarContainer>
             <CardsContainer>
-                {products.length !== 0 &&
-                    products.map(product => (
+                {searchResults &&
+                    searchResults.map(product => (
                         <Product
                             key={product.product_id}
                             product={product}
                             setAddItem={setAddItem}
                             setModalOpen={setModalOpen}
                             modalOpen={modalOpen}
-                        
-                            
-                            // name={product.name}
-                            // available_quantity={product.available_quantity}
-                            // price={product.price}
-                            // farm={product.farm}
-                            // farm_location_street={product.farm_location_street}
-                            // farm_location_city={product.farm_location_city}
                         />
                     ))}
             </CardsContainer>

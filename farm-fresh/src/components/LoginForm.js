@@ -49,7 +49,11 @@ const LoginForm = ({values,errors,touched,status}) => {
                         name = "password"
                         placeholder = "Password"
                     />
+                    {touched.password && errors.password && (
+                        <p>{errors.password}</p>
+                    )}
                 </label>
+                
                 <button type ="submit">Sign In</button>
             </Form>
         </div>
@@ -70,7 +74,7 @@ const FomrikLoginForm = withFormik ({
 
     handleSubmit(values, {setStatus,resetForm}){
         axios
-            .post("url", values)
+            .post("https://farm-life.herokuapp.com/auth/login", values)
             .then(res => {
                 setStatus(res.data);
                 resetForm();
@@ -83,3 +87,11 @@ const FomrikLoginForm = withFormik ({
 // Username
 // Password
 // Sign in button
+
+// const LoginForm = () => {
+//   return (
+//     <h1> Login Page</h1>
+//   )
+// }
+
+export default FomrikLoginForm;

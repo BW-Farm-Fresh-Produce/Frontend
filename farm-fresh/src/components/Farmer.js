@@ -18,7 +18,7 @@ const AddIcon = styled(IoIosAddCircleOutline)`
     font-size: 1.75rem;
 `;
 
-const Modal = ({ functionality, item }) => {
+const Modal = ({ functionality, item, productId }) => {
     return (
         <ModalBg>
             <ModalFormContainer>
@@ -57,17 +57,29 @@ export default () => {
     const [modalOpen, setModalOpen] = useState(false);
     const [editItem, setEditItem] = useState({});
 
-    // when adding search bar, useEffect dependency will need to be updated so that the visible products change
-    // useEffect(() => {
-    //     axios
-    //         .get()
-    //         .then(response => console.log("Response: ", response))
-    //         .catch(err => console.log("Error: ", err));
-    // }, [])
+    useEffect(() => {
+        axios
+            .get("https://farm-life.herokuapp.com/farmer/product", {
+                headers: {
+                    authorization: "AUTHORIZATION HERE"
+                }
+            })
+            .then(response => {
+                console.log("Response: ", response);
+                setInventory(response.product);
+            })
+            .catch(err => console.log("Error: ", err));
+    }, []);
 
     return (
         <div>
-            {modalOpen && <Modal functionality="Update" item={editItem} />}
+            {modalOpen && (
+                <Modal
+                    functionality="Update"
+                    item={editItem}
+                    productId={editItem.product_id}
+                />
+            )}
             <AddIcon
                 onClick={() => {
                     setModalOpen(!modalOpen);
