@@ -26,6 +26,15 @@ const Input = styled(Field)`
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.25);
 `;
 
+const ButtonContainer = styled.div`
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 0 auto;
+    width: 75%;
+`;
+
 const Button = styled.button`
     background: #a2df98;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.25);
@@ -39,6 +48,7 @@ const Button = styled.button`
     font-size: 1rem;
     cursor: pointer;
     margin: 1rem auto;
+    font-family: inherit;
 `;
 
 const Delete = styled.div`
@@ -66,8 +76,8 @@ const ProductForm = ({
     values,
     touched,
     errors,
-    status
-    // handleChange,
+    status,
+    handleChange
     // handleBlur,
     // handleSubmit
 }) => {
@@ -76,15 +86,15 @@ const ProductForm = ({
     const [product, setProduct] = useState({
         name: "",
         quantity: 0,
-        quantity_type: "",
+        quantity_unit: "",
         price: 0
     });
 
-    const handleChange = e => {
-        let value = e.target.value;
+    // const handleChange = e => {
+    //     let value = e.target.value;
 
-        setProduct({ ...product, [e.target.name]: value });
-    };
+    //     setProduct({ ...product, [e.target.name]: value });
+    // };
 
     const handleDelete = ({ productId }) => {
         // needs to delete item from database
@@ -110,20 +120,19 @@ const ProductForm = ({
     }, [status]);
 
     useEffect(() => {
-        {
-            /* just to check if it's working */
-        }
-        {
-            products.map(item => {
-                return (
-                    <ul key={item.id}>
-                        <li>Product name: {item.name}</li>
-                        <li>Available quantity: {item.quantity}</li>
-                        <li>Price: {item.price}</li>
-                    </ul>
-                );
-            });
-        }
+        // just to check if it's working
+        products.map(item => {
+            return (
+                <ul key={item.id}>
+                    <li>Product name: {item.name}</li>
+                    <li>
+                        Available quantity: {item.quantity}
+                        {item.quantity_unit}
+                    </li>
+                    <li>Price: {item.price}</li>
+                </ul>
+            );
+        });
     }, [products]);
 
     return (
@@ -136,6 +145,7 @@ const ProductForm = ({
                         name="name"
                         placeholder="Product name"
                         value={values.name}
+                        onChange={handleChange}
                     />{" "}
                     {touched.name && errors.name && (
                         <Error>{errors.name}</Error>
@@ -148,6 +158,7 @@ const ProductForm = ({
                         name="quantity"
                         placeholder="Max available quantity"
                         value={values.quantity}
+                        onChange={handleChange}
                     />{" "}
                     {touched.quantity && errors.quantity && (
                         <Error>{errors.quantity}</Error>
@@ -157,9 +168,10 @@ const ProductForm = ({
                 <div>
                     <Input
                         type="text"
-                        name="quantity-unit"
-                        placeholder="Unit of measurement (ie lb, bushel, quart, etc)"
+                        name="quantity_unit"
+                        placeholder="lb, bushel, quart, etc."
                         value={values.quantity_unit}
+                        onChange={handleChange}
                     />{" "}
                     {touched.quantity_unit && errors.quantity_unit && (
                         <Error>{errors.quantity_unit}</Error>
@@ -167,19 +179,25 @@ const ProductForm = ({
                 </div>
                 <Label htmlFor="price">Price: </Label>
                 <div>
+                    $
                     <Input
                         type="number"
                         name="price"
                         placeholder="Price"
                         value={values.price}
+                        onChange={handleChange}
                     />{" "}
                     {touched.price && errors.price && (
                         <Error>{errors.price}</Error>
                     )}
                 </div>
             </FormGrid>
-            <Delete onClick={() => handleDelete(productId)}>Delete item</Delete>
-            <Button type="submit">Update inventory</Button>
+            <ButtonContainer>
+                <Delete onClick={() => handleDelete(productId)}>
+                    Delete item
+                </Delete>
+                <Button type="submit">Update inventory</Button>
+            </ButtonContainer>
         </Form>
     );
 };
