@@ -236,7 +236,7 @@ export default props => {
                 </form>
             </SearchBarContainer>
             <CardsContainer>
-                {searchResults.length !== 0 &&
+                {searchResults &&
                     searchResults.map(product => (
                         <Product
                             key={product.product_id}
