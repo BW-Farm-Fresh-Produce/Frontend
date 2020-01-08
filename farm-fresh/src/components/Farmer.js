@@ -57,19 +57,19 @@ export default () => {
     const [modalOpen, setModalOpen] = useState(false);
     const [editItem, setEditItem] = useState({});
 
-    useEffect(() => {
-        axios
-            .get("https://farm-life.herokuapp.com/farmer/product", {
-                headers: {
-                    authorization: "AUTHORIZATION HERE"
-                }
-            })
-            .then(response => {
-                console.log("Response: ", response);
-                setInventory(response.product);
-            })
-            .catch(err => console.log("Error: ", err));
-    }, []);
+    // useEffect(() => {
+    //     axios
+    //         .get("https://farm-life.herokuapp.com/farmer/product", {
+    //             headers: {
+    //                 authorization: "AUTHORIZATION HERE"
+    //             }
+    //         })
+    //         .then(response => {
+    //             console.log("Response: ", response);
+    //             setInventory(response.product);
+    //         })
+    //         .catch(err => console.log("Error: ", err));
+    // }, []);
 
     return (
         <div>

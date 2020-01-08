@@ -66,10 +66,10 @@ const ProductForm = ({
     values,
     touched,
     errors,
-    status,
-    handleChange,
-    handleBlur,
-    handleSubmit
+    status
+    // handleChange,
+    // handleBlur,
+    // handleSubmit
 }) => {
     // for testing to see if the form is working
     const [products, setProducts] = useState([]);
@@ -87,7 +87,7 @@ const ProductForm = ({
     };
 
     const handleDelete = ({ productId }) => {
-        // need to delete item from database
+        // needs to delete item from database
         axios
             .delete("https://farm-life.herokuapp.com/farmer/product", {
                 headers: {
@@ -131,7 +131,12 @@ const ProductForm = ({
             <FormGrid>
                 <Label htmlFor="name">Product name: </Label>
                 <div>
-                    <Input type="text" name="name" placeholder="Product name" />{" "}
+                    <Input
+                        type="text"
+                        name="name"
+                        placeholder="Product name"
+                        value={values.name}
+                    />{" "}
                     {touched.name && errors.name && (
                         <Error>{errors.name}</Error>
                     )}
@@ -142,14 +147,32 @@ const ProductForm = ({
                         type="number"
                         name="quantity"
                         placeholder="Max available quantity"
+                        value={values.quantity}
                     />{" "}
                     {touched.quantity && errors.quantity && (
                         <Error>{errors.quantity}</Error>
                     )}
                 </div>
+                <Label htmlFor="quantity_unit">Unit: </Label>
+                <div>
+                    <Input
+                        type="text"
+                        name="quantity-unit"
+                        placeholder="Unit of measurement (ie lb, bushel, quart, etc)"
+                        value={values.quantity_unit}
+                    />{" "}
+                    {touched.quantity_unit && errors.quantity_unit && (
+                        <Error>{errors.quantity_unit}</Error>
+                    )}
+                </div>
                 <Label htmlFor="price">Price: </Label>
                 <div>
-                    <Input type="number" name="price" placeholder="Price" />{" "}
+                    <Input
+                        type="number"
+                        name="price"
+                        placeholder="Price"
+                        value={values.price}
+                    />{" "}
                     {touched.price && errors.price && (
                         <Error>{errors.price}</Error>
                     )}
@@ -165,32 +188,43 @@ const FormikProductForm = withFormik({
     mapPropsToValues(props) {
         return {
             name: props.name || "",
-            quantity: props.quantity || "",
-            price: props.price || ""
+            quantity: props.quantity || 0,
+            quantity_unit: props.quantity_unit || "",
+            price: props.price || 0
         };
     },
     validationSchema: Yup.object().shape({
-        name: Yup.string().required("Name is required"),
-        quantity: Yup.number()
-            .positive()
-            .required("Positive quantity is required"),
-        price: Yup.number()
-            .positive()
-            .required("Price greater than $0 is required")
+        name: Yup.string().required("**Required"),
+        quantity: Yup.number("Quantity must be a number")
+            .positive("Quantity must be greater than zero")
+            .required("**Required"),
+        quantity_unit: Yup.string().required("**Required"),
+        price: Yup.number("Price must be a number")
+            .positive("Price must be greater than zero")
+            .required("**Required")
     }),
     handleSubmit(values, { setStatus, resetForm }) {
         console.log("Submitting form: ", values);
-        setProducts(...products, product);
+        // setProducts(...products, product);
 
-        axios
-            .post("https://reqres.in/api/users/", values)
-            .then(res => {
-                console.log("Item successfully submitted: ", res);
-                alert("Invenvoty successfully updated");
-                setStatus(res.data);
-                resetForm();
-            })
-            .catch(err => console.log("There was an error: ", err.response));
+        // axios
+        //     .post(
+        //         "https://reqres.in/api/users/",
+        //         {
+        //             headers: {
+        //                 authorization: "FARMER AUTHORIZATION HERE",
+        //                 "Content-type": "application/json"
+        //             }
+        //         },
+        //         values
+        //     )
+        //     .then(res => {
+        //         console.log("Item successfully submitted: ", res);
+        //         alert("Invenvoty successfully updated");
+        //         setStatus(res.data);
+        //         resetForm();
+        //     })
+        //     .catch(err => console.log("There was an error: ", err.response));
     }
 })(ProductForm);
 
