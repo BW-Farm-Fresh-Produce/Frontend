@@ -12,7 +12,8 @@ const FormGrid = styled.div`
 
 const Label = styled.label`
     justify-self: end;
-    align-self: center;
+    align-self: start;
+    padding: 5px 0;
 `;
 
 const Input = styled(Field)`
@@ -40,8 +41,28 @@ const Button = styled.button`
     margin: 1rem auto;
 `;
 
+const Delete = styled.div`
+    background: #a2df98;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    width: 150px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    margin: 1rem auto;
+`;
+
+const Error = styled.p`
+    color: red;
+`;
+
 // for Farmers to add/edit an item
 const ProductForm = ({
+    productId,
     values,
     touched,
     errors,
@@ -52,6 +73,33 @@ const ProductForm = ({
 }) => {
     // for testing to see if the form is working
     const [products, setProducts] = useState([]);
+    const [product, setProduct] = useState({
+        name: "",
+        quantity: 0,
+        quantity_type: "",
+        price: 0
+    });
+
+    const handleChange = e => {
+        let value = e.target.value;
+
+        setProduct({ ...product, [e.target.name]: value });
+    };
+
+    const handleDelete = ({ productId }) => {
+        // need to delete item from database
+        axios
+            .delete("https://farm-life.herokuapp.com/farmer/product", {
+                headers: {
+                    authorization: "FARMER AUTHORIZATION HERE"
+                },
+                params: {
+                    id: { productId }
+                }
+            })
+            .then(response => console.log("Delete response: ", response))
+            .catch(error => console.log("Error deleting item: ", error));
+    };
 
     console.log("errors:", errors);
     console.log("touched:", touched);
@@ -82,26 +130,33 @@ const ProductForm = ({
         <Form>
             <FormGrid>
                 <Label htmlFor="name">Product name: </Label>
-                <Input
-                    type="text"
-                    name="name"
-                    placeholder="Product name"
-                />{" "}
-                {touched.name && errors.name && <p>{errors.name}</p>}
+                <div>
+                    <Input type="text" name="name" placeholder="Product name" />{" "}
+                    {touched.name && errors.name && (
+                        <Error>{errors.name}</Error>
+                    )}
+                </div>
                 <Label htmlFor="quantity">Available quantity: </Label>
-                <Input
-                    type="number"
-                    name="quantity"
-                    placeholder="Max available quantity"
-                />{" "}
-                {touched.quantity && errors.quantity && (
-                    <p>{errors.quantity}</p>
-                )}
+                <div>
+                    <Input
+                        type="number"
+                        name="quantity"
+                        placeholder="Max available quantity"
+                    />{" "}
+                    {touched.quantity && errors.quantity && (
+                        <Error>{errors.quantity}</Error>
+                    )}
+                </div>
                 <Label htmlFor="price">Price: </Label>
-                <Input type="number" name="price" placeholder="Price" />{" "}
-                {touched.price && errors.price && <p>{errors.price}</p>}
+                <div>
+                    <Input type="number" name="price" placeholder="Price" />{" "}
+                    {touched.price && errors.price && (
+                        <Error>{errors.price}</Error>
+                    )}
+                </div>
             </FormGrid>
-            <Button type="submit">Add item</Button>
+            <Delete onClick={() => handleDelete(productId)}>Delete item</Delete>
+            <Button type="submit">Update inventory</Button>
         </Form>
     );
 };
@@ -125,6 +180,8 @@ const FormikProductForm = withFormik({
     }),
     handleSubmit(values, { setStatus, resetForm }) {
         console.log("Submitting form: ", values);
+        setProducts(...products, product);
+
         axios
             .post("https://reqres.in/api/users/", values)
             .then(res => {
