@@ -124,11 +124,8 @@ const Modal = ({ functionality, item }) => {
                     {functionality} {item.name}
                 </FormTitle>
                 <ModalGrid>
-                    {/* <div> */}
                     <Label>Product name: </Label>
                     <p>{item.name}</p>
-                    {/* </div> */}
-                    {/* <div> */}
                     <Labe htmlFor="quantity">Quantity: </Labe>
                     <Input
                         type="number"
@@ -139,15 +136,10 @@ const Modal = ({ functionality, item }) => {
                         max={item.available_quantity}
                         onChange={e => setQuantity(e.target.value)}
                     />
-                    {/* </div> */}
-                    {/* <div> */}
                     <Label>Price: </Label>
                     <p>${item.price} / lb</p>
-                    {/* </div> */}
-                    {/* <div> */}
                     <Label>Total cost: </Label>
                     <p>${cost}</p>
-                    {/* </div> */}
                 </ModalGrid>
                 <Button onClick={() => console.log("Clicked Add to Cart")}>
                     {functionality} to Cart
@@ -164,7 +156,7 @@ export default props => {
             product_id: 4321,
             name: "Red grapes",
             available_quantity: 25,
-            quantity_type: "lbs",
+            quantity_type: "lb",
             price: 1.25,
             farmer_id: 1234,
             farm: "Old McDonald's",
@@ -175,7 +167,7 @@ export default props => {
             product_id: 4322,
             name: "Strawberries",
             available_quantity: 20,
-            quantity_type: "lbs",
+            quantity_type: "lb",
             price: 1.0,
             farmer_id: 1234,
             farm: "Old McDonald's",
@@ -186,7 +178,7 @@ export default props => {
             product_id: 4323,
             name: "Apples",
             available_quantity: 30,
-            quantity_type: "bushels",
+            quantity_type: "bushel",
             price: 3.0,
             farmer_id: 1234,
             farm: "Farmer Joe's",
@@ -200,20 +192,25 @@ export default props => {
     const [searchTerm, setSearchTerm] = useState("");
     const [searchResults, setSearchResults] = useState(products);
 
-    // when adding search bar, useEffect dependency will need to be updated so that the visible products change
+    useEffect(() => {
+        // API call to get available products
+        axios
+            .get("https://farm-life.herokuapp.com/farmer/product/products")
+            .then(response => {
+                console.log("Response: ", response);
+                setProducts(response.product);
+                setSearchResults(response.product);
+            })
+            .catch(err => console.log("Error: ", err));
+    }, []);
+
+    // for search bar
     useEffect(() => {
         const results = products.filter(item =>
             item.farm_location_city.toLowerCase().includes(searchTerm)
         );
 
         setSearchResults(results);
-        // API call to get available products
-        // axios
-        //     .get()
-        //     .then(response => {
-        //         console.log("Response: ", response);
-        //     })
-        //     .catch(err => console.log("Error: ", err));
     }, [searchTerm]);
 
     const handleSearchBarChange = e => {
@@ -247,12 +244,6 @@ export default props => {
                             setAddItem={setAddItem}
                             setModalOpen={setModalOpen}
                             modalOpen={modalOpen}
-                            // name={product.name}
-                            // available_quantity={product.available_quantity}
-                            // price={product.price}
-                            // farm={product.farm}
-                            // farm_location_street={product.farm_location_street}
-                            // farm_location_city={product.farm_location_city}
                         />
                     ))}
             </CardsContainer>
