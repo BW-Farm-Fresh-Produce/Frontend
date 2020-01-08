@@ -90,3 +90,5 @@ const FomrikSignUpForm = withFormik ({
             })
     }
 })(SignUpForm);
+
+export default SignUpForm;

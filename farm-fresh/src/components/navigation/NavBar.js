@@ -1,7 +1,6 @@
 import React, {useContext} from "react";
 import styled from "styled-components";
 import Brand from "./Brand";
-//import PrivateRoute from "./PrivateRoute";
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import CartContext from '../../contexts/CartContext';
 
@@ -9,20 +8,21 @@ const NavBar = () => {
   const cart = useContext(CartContext);
   return (
     <>
-      <NavStyle>
-        <FlexContainer>
-          <Brand />
-          <Router>
-            <NavLinks>
-              <Link to="/cart"> Cart </Link>
+   <NavStyle>
+    <FlexContainer>
+      <Brand />
+        <Router>
+        <NavLinks>
+          <Link to="/">Home</Link>
+          <Link to="/cart"> Cart </Link>
              {/* <p>{cart.length}</p> */}
-              <Link to="/logout">Logout</Link>
-              <Link to="/inventory">Inventory</Link>
-            </NavLinks>
+          {/* <Link to="/farmer">Farmer</Link> */}
+          <Link to="/logout">Logout</Link>
+        </NavLinks>
           </Router>
         </FlexContainer>
       </NavStyle>
-    </>
+ </>
   );
 };
 export default NavBar;

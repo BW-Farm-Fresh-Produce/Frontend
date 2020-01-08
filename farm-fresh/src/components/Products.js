@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 // Components
 import Product from './Product';
-import ProductContext from '../contexts/ProductContext';
 
 const CardsContainer = styled.div`
     display: grid;
@@ -18,7 +17,6 @@ const CardsContainer = styled.div`
 `;
 
 const Products = () => {
-const { products, addItem } = useContext(ProductContext);
    return (
 	 <div>
 	   <CardsContainer>
