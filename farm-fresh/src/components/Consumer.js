@@ -184,6 +184,7 @@ export default props => {
             farm_location_city: "Farmington, NY 12346"
         }
     ]);
+
     const [addItem, setAddItem] = useState({});
     const [modalOpen, setModalOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
