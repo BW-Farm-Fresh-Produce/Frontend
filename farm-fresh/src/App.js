@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Consumer from './components/Consumer';
 import NavBar from './components/navigation/NavBar';
@@ -15,3 +16,4 @@ function App() {
   }
 
 export default App;
+

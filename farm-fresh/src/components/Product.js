@@ -70,7 +70,7 @@ const ProductName = styled.h2`
     font-size: 1.1rem;
 `;
 
-// props needed --> product.name, product.available_quantity, product.price, product.farmer__farm_name, product.farmer_farm_location
+// props needed --> product.name, product.quantity, product.price, product.farmer__farm_name, product.farmer_farm_location
 export default ({
      product,
      setAddItem,
@@ -103,18 +103,18 @@ export default ({
             <TextContainer>
                 <InfoWrapper>
                     <ProductName>{product.name}</ProductName>
-                    {product.available_quantity === 1 ? (
+                    {product.quantity === 1 ? (
                         <p>
-                            {product.available_quantity} {product.quantity_type}
+                            {product.quantity} {product.quantity_unit}
                         </p>
                     ) : (
                         <p>
-                            {product.available_quantity} {product.quantity_type}
+                            {product.quantity} {product.quantity_unit}
                             s
                         </p>
                     )}
                     <p>
-                        ${product.price} / {product.quantity_type}
+                        ${product.price} / {product.quantity_unit}
                     </p>
                 </InfoWrapper>
                 <InfoWrapper>
