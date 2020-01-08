@@ -10,23 +10,47 @@ import {
     CardsContainer,
     ModalBg,
     ModalFormContainer,
+    CloseIcon,
     FormTitle
 } from "./Consumer";
 import FormikProductForm from "./ProductForm";
 
+const FarmerContainer = styled.div`
+    margin-top: 100px;
+`;
+
+const AddItemContainer = styled.div`
+    width: 80%;
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+
+    p {
+        cursor: pointer;
+    }
+`;
+
 const AddIcon = styled(IoIosAddCircleOutline)`
     cursor: pointer;
     font-size: 1.75rem;
+    margin-right: 0.25rem;
 `;
 
-const Modal = ({ functionality, item, productId }) => {
+const Modal = ({ functionality, item, productId, setModalOpen }) => {
     return (
         <ModalBg>
             <ModalFormContainer>
-                <FormTitle>
-                    {functionality} {item.name}{" "}
-                </FormTitle>
-                <FormikProductForm />
+                <CloseIcon onClick={() => setModalOpen(false)} />
+                {item.name ? (
+                    <FormTitle>
+                        {functionality} {item.name}{" "}
+                    </FormTitle>
+                ) : (
+                    <FormTitle>{functionality} inventory </FormTitle>
+                )}
+                <FormikProductForm {...item} />
             </ModalFormContainer>
         </ModalBg>
     );
@@ -37,7 +61,8 @@ export default () => {
         {
             product_id: 4321,
             name: "Red grapes",
-            available_quantity: "25lbs",
+            quantity: 25,
+            quantity_unit: "lb",
             price: 1.25,
             farmer_id: 1234,
             farm: "Old McDonald's",
@@ -47,7 +72,8 @@ export default () => {
         {
             product_id: 4322,
             name: "Strawberries",
-            available_quantity: "20lbs",
+            quantity: 20,
+            quantity_unit: "lb",
             price: 1.0,
             farmer_id: 1234,
             farm: "Old McDonald's",
@@ -58,35 +84,46 @@ export default () => {
     const [modalOpen, setModalOpen] = useState(false);
     const [editItem, setEditItem] = useState({});
 
-    useEffect(() => {
-        axios
-            .get("https://farm-life.herokuapp.com/farmer/product", {
-                headers: {
-                    authorization: "AUTHORIZATION HERE"
-                }
-            })
-            .then(response => {
-                console.log("Response: ", response);
-                setInventory(response.product);
-            })
-            .catch(err => console.log("Error: ", err));
-    }, []);
+    // useEffect(() => {
+    //     axios
+    //         .get("https://farm-life.herokuapp.com/farmer/product", {
+    //             headers: {
+    //                 authorization: "AUTHORIZATION HERE"
+    //             }
+    //         })
+    //         .then(response => {
+    //             console.log("Response: ", response);
+    //             setInventory(response.product);
+    //         })
+    //         .catch(err => console.log("Error: ", err));
+    // }, []);
 
     return (
-        <div>
+        <FarmerContainer>
             {modalOpen && (
                 <Modal
                     functionality="Update"
                     item={editItem}
                     productId={editItem.product_id}
+                    setModalOpen={setModalOpen}
                 />
             )}
-            <AddIcon
-                onClick={() => {
-                    setModalOpen(!modalOpen);
-                    setEditItem({ name: "inventory" }); // work around to be able to reuse Modal component
-                }}
-            />
+            <AddItemContainer>
+                <AddIcon
+                    onClick={() => {
+                        setModalOpen(!modalOpen);
+                        setEditItem({}); // reset editItem
+                    }}
+                />
+                <p
+                    onClick={() => {
+                        setModalOpen(!modalOpen);
+                        setEditItem({}); // reset editItem
+                    }}
+                >
+                    Add item
+                </p>
+            </AddItemContainer>
             <CardsContainer>
                 {inventory.length !== 0 &&
                     inventory.map(product => (
@@ -99,6 +136,6 @@ export default () => {
                         />
                     ))}
             </CardsContainer>
-        </div>
+        </FarmerContainer>
     );
 };

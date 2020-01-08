@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 import Product from "./Product";
 import { FiSearch } from "react-icons/fi";
+import { IoMdCloseCircleOutline } from "react-icons/io";
 
 const SearchBarContainer = styled.div`
     width: 80%;
@@ -60,6 +61,16 @@ export const ModalFormContainer = styled.div`
     min-width: 300px;
     height: auto;
     margin: 0 auto;
+    position: relative;
+`;
+
+export const CloseIcon = styled(IoMdCloseCircleOutline)`
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    z-index: 3;
+    cursor: pointer;
+    font-size: 1.75rem;
 `;
 
 export const FormTitle = styled.h3`
@@ -105,7 +116,8 @@ const Button = styled.div`
     cursor: pointer;
 `;
 
-const Modal = ({ functionality, item}) => {
+
+const Modal = ({ functionality, item, setModalOpen }) => {
     const [cost, setCost] = useState(0);
     const [quantity, setQuantity] = useState(0);
 
@@ -118,6 +130,7 @@ const Modal = ({ functionality, item}) => {
     return (
         <ModalBg>
             <ModalFormContainer>
+                <CloseIcon onClick={() => setModalOpen(false)} />
                 <FormTitle>
                     {functionality} {item.name}
                 </FormTitle>
@@ -131,7 +144,7 @@ const Modal = ({ functionality, item}) => {
                         name="quantity"
                         value={quantity}
                         min={0}
-                        max={item.available_quantity}
+                        max={item.quantity}
                         onChange={e => setQuantity(e.target.value)}
                     />
                     <Label>Price: </Label>
@@ -153,7 +166,7 @@ export default props => {
         {
             product_id: 4321,
             name: "Red grapes",
-            available_quantity: 25,
+            quantity: 25,
             quantity_type: "lb",
             price: 1.25,
             farmer_id: 1234,
@@ -164,7 +177,7 @@ export default props => {
         {
             product_id: 4322,
             name: "Strawberries",
-            available_quantity: 20,
+            quantity: 20,
             quantity_type: "lb",
             price: 1.0,
             farmer_id: 1234,
@@ -175,7 +188,7 @@ export default props => {
         {
             product_id: 4323,
             name: "Apples",
-            available_quantity: 30,
+            quantity: 30,
             quantity_type: "bushel",
             price: 3.0,
             farmer_id: 1234,
@@ -217,7 +230,13 @@ export default props => {
 
     return (
         <>
-            {modalOpen && <Modal functionality="Add" item={addItem} />}
+            {modalOpen && (
+                <Modal
+                    functionality="Add"
+                    item={addItem}
+                    setModalOpen={setModalOpen}
+                />
+            )}
             <SearchBarContainer>
                 <form>
                     <label htmlFor="city">
