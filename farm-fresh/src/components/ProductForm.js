@@ -67,7 +67,6 @@ const ProductForm = ({
     touched,
     errors,
     status,
-    handleChange,
     handleBlur,
     handleSubmit
 }) => {
@@ -180,7 +179,7 @@ const FormikProductForm = withFormik({
     }),
     handleSubmit(values, { setStatus, resetForm }) {
         console.log("Submitting form: ", values);
-        setProducts(...products, product);
+        // setProducts(...products, product);
 
         axios
             .post("https://reqres.in/api/users/", values)

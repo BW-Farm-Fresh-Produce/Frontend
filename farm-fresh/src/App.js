@@ -1,17 +1,41 @@
 import React from 'react';
-import Consumer from './components/Consumer';
+
+//Navigation 
+import Routes from "./components/navigation/Routes";
+import Popup from "reactjs-popup";
+import Hello from "./components/navigation/Hello";
+import BurgerIcon from "./components/navigation/BurgerIcon";
+import Menu from "./components/navigation/Menu";
+import "./index.css";
 import NavBar from './components/navigation/NavBar';
 
 
+const styles = {
+  fontFamily: "sans-serif",
+  textAlign: "center",
+  marginTop: "40px"
+};
+const contentStyle = {
+  background: "rgba(255,255,255,0)",
+  width: "80%",
+  border: "none"
+};
 
 function App() {
-    return (
-      <div className="App">
-          <NavBar/>
-          {/* <LoginForm/> */}
-          <Consumer />
-      </div>
-);
-  }
+  return (
+    <div className="App">
+      <Popup
+        modal 
+        overlayStyle={{ background: "rgba(255,255,255,0.98" }} 
+        contentStyle={contentStyle} 
+        closeOnDocumentClick={false} 
+        trigger={open => <BurgerIcon open={open} />} 
+      >
+        {close => <Menu close={close} />} 
+      </Popup>
+      <Routes />
+    </div>
+  );
+}
 
 export default App;

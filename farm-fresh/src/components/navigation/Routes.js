@@ -1,22 +1,24 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import SignupForm from '../../components/SignupForm';
-import LoginForm from '../LoginForm';
+
+//Components
+import LoginForm from '../../components/LoginForm';
 import PrivateRoute from './PrivateRoute';
+import SignUpForm from '../SignupForm';
 import Consumer from '../Consumer';
-import Farmer from '../../components/Farmer';
+import Farmer from '../Farmer';
+
 
 const Routes = () => {
     return (
         <div>
-            {/* <PrivateRoute exact path="/" component={Consumer} />  */}
-            <Route path="/login" component={Consumer} /> 
+            {/* <Route exact path="/" component={SignUpForm} />  */}
             <Route path="/login" component={LoginForm} /> 
-            <Route path="/signup" component={SignupForm} /> 
-            <Route path="/farmer" component={Farmer} />
-
+            <Route path="/logout" component={LoginForm} /> 
+            {/* <PrivateRoute path="/consumer" component={Consumer} />
+            <PrivateRoute path="/farmer" component={Farmer} /> */}
         </div>
     )
 }
 
-export default Routes
+export default Routes;
