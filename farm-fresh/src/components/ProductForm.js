@@ -41,12 +41,28 @@ const Button = styled.button`
     margin: 1rem auto;
 `;
 
+const Delete = styled.div`
+    background: #a2df98;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    width: 150px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    margin: 1rem auto;
+`;
+
 const Error = styled.p`
     color: red;
 `;
 
 // for Farmers to add/edit an item
 const ProductForm = ({
+    productId,
     values,
     touched,
     errors,
@@ -68,6 +84,21 @@ const ProductForm = ({
         let value = e.target.value;
 
         setProduct({ ...product, [e.target.name]: value });
+    };
+
+    const handleDelete = ({ productId }) => {
+        // need to delete item from database
+        axios
+            .delete("https://farm-life.herokuapp.com/farmer/product", {
+                headers: {
+                    authorization: "FARMER AUTHORIZATION HERE"
+                },
+                params: {
+                    id: { productId }
+                }
+            })
+            .then(response => console.log("Delete response: ", response))
+            .catch(error => console.log("Error deleting item: ", error));
     };
 
     console.log("errors:", errors);
@@ -124,6 +155,7 @@ const ProductForm = ({
                     )}
                 </div>
             </FormGrid>
+            <Delete onClick={() => handleDelete(productId)}>Delete item</Delete>
             <Button type="submit">Update inventory</Button>
         </Form>
     );

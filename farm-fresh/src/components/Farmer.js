@@ -18,7 +18,7 @@ const AddIcon = styled(IoIosAddCircleOutline)`
     font-size: 1.75rem;
 `;
 
-const Modal = ({ functionality, item }) => {
+const Modal = ({ functionality, item, productId }) => {
     return (
         <ModalBg>
             <ModalFormContainer>
@@ -73,7 +73,13 @@ export default () => {
 
     return (
         <div>
-            {modalOpen && <Modal functionality="Update" item={editItem} />}
+            {modalOpen && (
+                <Modal
+                    functionality="Update"
+                    item={editItem}
+                    productId={editItem.product_id}
+                />
+            )}
             <AddIcon
                 onClick={() => {
                     setModalOpen(!modalOpen);
