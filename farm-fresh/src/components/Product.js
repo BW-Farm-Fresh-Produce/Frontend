@@ -99,8 +99,19 @@ export default ({
             <TextContainer>
                 <InfoWrapper>
                     <ProductName>{product.name}</ProductName>
-                    <p>{product.available_quantity}</p>
-                    <p>{product.price}</p>
+                    {product.available_quantity === 1 ? (
+                        <p>
+                            {product.available_quantity} {product.quantity_type}
+                        </p>
+                    ) : (
+                        <p>
+                            {product.available_quantity} {product.quantity_type}
+                            s
+                        </p>
+                    )}
+                    <p>
+                        ${product.price} / {product.quantity_type}
+                    </p>
                 </InfoWrapper>
                 <InfoWrapper>
                     <p>{product.farm}</p>
