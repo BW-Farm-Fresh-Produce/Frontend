@@ -30,7 +30,7 @@ body {
   }
   
   .open {
-    background: #e5195f !important;
+    background: #a2df98 !important;
   }
   
   .burger-menu.open {
@@ -40,7 +40,7 @@ body {
     right: 20px;
     bottom: 40px;
     z-index: 9999;
-    background: #fff;
+    background: #a2df98;
     padding: 10px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
   }

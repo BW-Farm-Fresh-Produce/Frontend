@@ -12,11 +12,11 @@ import Farmer from '../Farmer';
 const Routes = () => {
     return (
         <div>
-            {/* <Route exact path="/" component={SignUpForm} />  */}
+            <Route exact path="/" component={SignUpForm} />
             <Route path="/login" component={LoginForm} /> 
             <Route path="/logout" component={LoginForm} /> 
-            {/* <PrivateRoute path="/consumer" component={Consumer} />
-            <PrivateRoute path="/farmer" component={Farmer} /> */}
+            <PrivateRoute path="/consumer" component={Consumer} />
+            <PrivateRoute path="/farmer" component={Farmer} />
         </div>
     )
 }

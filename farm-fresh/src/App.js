@@ -3,11 +3,10 @@ import React from 'react';
 //Navigation 
 import Routes from "./components/navigation/Routes";
 import Popup from "reactjs-popup";
-import Hello from "./components/navigation/Hello";
 import BurgerIcon from "./components/navigation/BurgerIcon";
 import Menu from "./components/navigation/Menu";
 import "./index.css";
-import NavBar from './components/navigation/NavBar';
+
 
 
 const styles = {
@@ -34,6 +33,7 @@ function App() {
         {close => <Menu close={close} />} 
       </Popup>
       <Routes />
+      
     </div>
   );
 }
