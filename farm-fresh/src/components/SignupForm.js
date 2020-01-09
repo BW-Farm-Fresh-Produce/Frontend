@@ -146,7 +146,7 @@ const FomrikSignUpForm = withFormik ({
     passwordConfirm: Yup.string()
         .oneOf([Yup.ref('password'),null])
         .required("Password does not match!!!")
-    
+     
     }),
 
     handleSubmit(values, {setStatus,resetForm}){
