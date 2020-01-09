@@ -64,29 +64,32 @@ const LoginCard = styled.div`
     margin-right:40%;
 `;
 const LoginForm = ({values,errors,touched,status}) => {
-    
+    console.log(values)
+    console.log(errors)
+    console.log(status)
     const [user,setUser] =useState([])
     // local stat that holds the succesful form Submission.
     useEffect(()=>{
         status && setUser(user => [...user,status]);
+        
     },[status]);
 
     return (
         <LoginCard>
             <FormFlex>
-                <Label htmlFor="userName"> 
+                <Label htmlFor="username"> 
                 Login
                     <StyledInput
-                        id="userName"
+                        id="username"
                         type="text"
-                        name="userName"
+                        name="username"
                         placeholder="username"
                     />
                     {touched.userName && errors.userName && (
                         <p>{errors.userName}</p>
                     )}
                 </Label>
-                <Label>
+                <Label htmlFor="password">
                     Password
                     <StyledInput
                         id="password"
@@ -108,7 +111,7 @@ const LoginForm = ({values,errors,touched,status}) => {
 const FomrikLoginForm = withFormik ({
     mapPropsToValues(props){
         return {
-            name : props.userName || "",
+            name : props.username || "",
             password : props.password ||"",
         }
     },
@@ -124,7 +127,9 @@ const FomrikLoginForm = withFormik ({
                 setStatus(res.data);
                 resetForm();
             })
-    } 
+            
+    }
+    
   })(LoginForm);
 
 
