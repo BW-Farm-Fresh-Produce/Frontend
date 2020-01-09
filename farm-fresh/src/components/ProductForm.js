@@ -3,6 +3,7 @@ import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import styled from "styled-components";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 const FormGrid = styled.div`
     display: grid;
@@ -94,18 +95,11 @@ const ProductForm = ({
         price: 0
     });
 
-    const handleDelete = ({ productId }) => {
+    const handleDelete = ({ product_id }) => {
         // needs to delete item from database
-        axios
-            .delete("https://farm-life.herokuapp.com/farmer/product", {
-                headers: {
-                    authorization: "FARMER AUTHORIZATION HERE"
-                },
-                params: {
-                    id: { productId }
-                }
-            })
-            .then(response => console.log("Delete response: ", response))
+        axiosWithAuth()
+            .delete(`https://farm-life.herokuapp.com/farmer/product/${product_id}`)
+.then(response => console.log("Delete response: ", response))
             .catch(error => console.log("Error deleting item: ", error));
     };
 

@@ -1,5 +1,6 @@
 
-import React from 'react';
+import React, { useState } from 'react';
+
 
 //Navigation 
 import NavBar from './components/navigation/NavBar';
@@ -8,6 +9,9 @@ import Popup from "reactjs-popup";
 import BurgerIcon from "./components/navigation/BurgerIcon";
 import Menu from "./components/navigation/Menu";
 import "./index.css";
+
+
+
 
 
 
@@ -36,8 +40,8 @@ function App() {
         {close => <Menu close={close} />} 
       </Popup>
       <Routes />
-      
     </div>
+
   );
 }
 

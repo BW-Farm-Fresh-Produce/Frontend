@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 
 
-
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { MdEdit } from "react-icons/md";
 
@@ -76,8 +75,9 @@ export default ({
      setAddItem,
      setEditItem,
      setModalOpen,
-     modalOpen
+     modalOpen    
 }) => {
+ 
     return (
 
         <Card>
