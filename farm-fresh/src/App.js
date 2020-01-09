@@ -2,6 +2,7 @@
 import React from 'react';
 
 //Navigation 
+import NavBar from './components/navigation/NavBar';
 import Routes from "./components/navigation/Routes";
 import Popup from "reactjs-popup";
 import BurgerIcon from "./components/navigation/BurgerIcon";
@@ -24,6 +25,7 @@ const contentStyle = {
 function App() {
   return (
     <div className="App">
+      <NavBar/>
       <Popup
         modal 
         overlayStyle={{ background: "rgba(255,255,255,0.98" }} 
