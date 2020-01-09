@@ -4,9 +4,71 @@ import styled from "styled-components";
 
 import FormikOrderForm from "./OrderForm";
 
-const Cart = styled.div``;
+const CheckoutContainer = styled.div`
+    margin: 1.5rem auto;
+    width: 80%;
+    max-width: 960px;
+    border-radius: 15px;
+    border: 1px solid #ffffff;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.25);
+`;
 
-const ItemContainer = styled.div``;
+const Title = styled.h2`
+    text-align: center;
+`;
+
+const OrderInfo = styled.section`
+    width: 80%;
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+`;
+
+const Cart = styled.div`
+    width: 50%;
+`;
+
+const CartHeaders = styled.div`
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(150px, 200px) 100px 50px;
+    grid-column-gap: 15px;
+    grid-template-areas: "product       qty      price";
+`;
+
+const ProductHeader = styled.h3`
+    grid-area: product;
+`;
+
+const QtyHeader = styled.h3`
+    grid-area: qty;
+`;
+
+const PriceHeader = styled.h3`
+    grid-area: price;
+`;
+
+const ItemContainer = styled.div`
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(150px, 200px) 100px 50px;
+    grid-column-gap: 15px;
+    grid-template-areas: "name       qty      price";
+`;
+
+const ItemName = styled.p`
+    grid-area: name;
+`;
+
+const ItemQty = styled.p`
+    grid-area: qty;
+`;
+
+const ItemPrice = styled.p`
+    grid-area: price;
+`;
 
 const FarmInfo = styled.div``;
 
@@ -48,27 +110,31 @@ export default () => {
     // }, [cartItems]);
 
     return (
-        <div>
-            <h2>Review Order</h2>
-            <section>
+        <CheckoutContainer>
+            <Title>Review Order</Title>
+            <OrderInfo>
                 <Cart>
+                    <CartHeaders>
+                        <ProductHeader>Product</ProductHeader>
+                        <QtyHeader>Qty</QtyHeader>
+                        <PriceHeader>Price</PriceHeader>
+                    </CartHeaders>
                     {cartItems !== [] &&
                         cartItems.map((item, index) => {
                             let total = item.price * item.quantity;
                             return (
                                 <ItemContainer key={index}>
-                                    <p>{item.item_name}</p>
+                                    <ItemName>{item.item_name}</ItemName>
                                     {/* make quantity type plural when necessary */}
                                     {item.quantity !== 1 ? (
-                                        <p>
-                                            {item.quantity}
-                                            {item.quantity_type}
-                                        </p>
+                                        <ItemQty>
+                                            {item.quantity} {item.quantity_type}
+                                            s
+                                        </ItemQty>
                                     ) : (
-                                        <p>
-                                            {item.quantity}
-                                            {item.quantity_type}s
-                                        </p>
+                                        <ItemPrice>
+                                            {item.quantity} {item.quantity_type}
+                                        </ItemPrice>
                                     )}
                                     <p>${total}</p>
                                 </ItemContainer>
@@ -76,10 +142,11 @@ export default () => {
                         })}
                 </Cart>
                 <FarmInfo>
+                    Farm address here
                     {/* ASK KIM IF PRODUCTS HAVE ID'S TIED TO THEIR FARMS --> WOULD LIKE TO PUT FARM NAME AND ADDRESS ON THE REVIEW ORDER/CHECKOUT FORM PAGE */}
                 </FarmInfo>
-            </section>
+            </OrderInfo>
             <FormikOrderForm />
-        </div>
+        </CheckoutContainer>
     );
 };

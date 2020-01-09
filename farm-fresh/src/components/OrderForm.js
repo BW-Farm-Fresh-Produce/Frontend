@@ -6,7 +6,33 @@ import * as Yup from "yup";
 
 import { Button, Error } from "./ProductForm";
 
+const StyledForm = styled(Form)`
+    width: 80%;
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+`;
+
+const InputContainer = styled.div`
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: 150px 200px;
+    grid-column-gap: 15px;
+    grid-template-areas:
+        "label      input"
+        ".          error";
+`;
+
+const Label = styled.label`
+    grid-area: label;
+    align-self: center;
+    justify-self: flex-end;
+`;
+
 const Input = styled(Field)`
+    grid-area: input;
     width: 200px;
     height: 30px;
     border: 1px solid #ffffff;
@@ -19,6 +45,10 @@ const Input = styled(Field)`
     background: white;
 `;
 
+const ErrorMsg = styled(Error)`
+    grid-area: error;
+`;
+
 const OrderForm = ({ values, touched, errors, status, handleChange }) => {
     const [order, setOrder] = useState({});
 
@@ -28,119 +58,149 @@ const OrderForm = ({ values, touched, errors, status, handleChange }) => {
     }, [status]);
 
     return (
-        <Form>
-            <label htmlFor="name">Name: </label>
-            <Input
-                type="text"
-                name="name"
-                placeholder="Name"
-                value={values.name}
-                onChange={handleChange}
-            />
-            {touched.name && errors.name && <Error>{errors.name}</Error>}
+        <StyledForm>
+            <InputContainer>
+                <Label htmlFor="name">Name: </Label>
+                <Input
+                    type="text"
+                    name="name"
+                    placeholder="Name"
+                    value={values.name}
+                    onChange={handleChange}
+                />
+                {touched.name && errors.name && (
+                    <ErrorMsg>{errors.name}</ErrorMsg>
+                )}
+            </InputContainer>
 
-            <label htmlFor="phone">Phone number: </label>
-            <Input
-                type="text"
-                name="phone"
-                placeholder="(  ) ___ - ____"
-                value={values.phone}
-                onChange={handleChange}
-            />
-            {touched.phone && errors.phone && <Error>{errors.phone}</Error>}
+            <InputContainer>
+                <Label htmlFor="phone">Phone number: </Label>
+                <Input
+                    type="text"
+                    name="phone"
+                    placeholder="(  ) ___ - ____"
+                    value={values.phone}
+                    onChange={handleChange}
+                />
+                {touched.phone && errors.phone && (
+                    <ErrorMsg>{errors.phone}</ErrorMsg>
+                )}
+            </InputContainer>
 
-            <label htmlFor="email">E-mail address: </label>
-            <Input
-                type="email"
-                name="email"
-                placeholder="E-mail"
-                value={values.email}
-                onChange={handleChange}
-            />
-            {touched.email && errors.email && <Error>{errors.email}</Error>}
+            <InputContainer>
+                <Label htmlFor="email">E-mail address: </Label>
+                <Input
+                    type="email"
+                    name="email"
+                    placeholder="E-mail"
+                    value={values.email}
+                    onChange={handleChange}
+                />
+                {touched.email && errors.email && (
+                    <ErrorMsg>{errors.email}</ErrorMsg>
+                )}
+            </InputContainer>
 
-            <label htmlFor="streetAddress">Billing address: </label>
-            <Input
-                type="text"
-                name="streetAddress"
-                placeholder="Street address"
-                value={values.streetAddress}
-                onChange={handleChange}
-            />
-            {touched.streetAddress && errors.streetAddress && (
-                <Error>{errors.streetAddress}</Error>
-            )}
+            <InputContainer>
+                <Label htmlFor="streetAddress">Billing address: </Label>
+                <Input
+                    type="text"
+                    name="streetAddress"
+                    placeholder="Street address"
+                    value={values.streetAddress}
+                    onChange={handleChange}
+                />
+                {touched.streetAddress && errors.streetAddress && (
+                    <ErrorMsg>{errors.streetAddress}</ErrorMsg>
+                )}
+            </InputContainer>
 
-            <label htmlFor="city"></label>
-            <Input
-                type="text"
-                name="city"
-                placeholder="City"
-                value={values.city}
-                onChange={handleChange}
-            />
-            {touched.city && errors.city && <Error>{errors.city}</Error>}
+            <InputContainer>
+                <Label htmlFor="city"></Label>
+                <Input
+                    type="text"
+                    name="city"
+                    placeholder="City"
+                    value={values.city}
+                    onChange={handleChange}
+                />
+                {touched.city && errors.city && (
+                    <ErrorMsg>{errors.city}</ErrorMsg>
+                )}
+            </InputContainer>
 
-            <label htmlFor="state"></label>
-            <Input
-                type="text"
-                name="state"
-                placeholder="State"
-                value={values.state}
-                onChange={handleChange}
-            />
-            {touched.state && errors.state && <Error>{errors.state}</Error>}
+            <InputContainer>
+                <Label htmlFor="state"></Label>
+                <Input
+                    type="text"
+                    name="state"
+                    placeholder="State"
+                    value={values.state}
+                    onChange={handleChange}
+                />
+                {touched.state && errors.state && (
+                    <ErrorMsg>{errors.state}</ErrorMsg>
+                )}
+            </InputContainer>
 
-            <label htmlFor="zipCode"></label>
-            <Input
-                type="number"
-                name="zipCode"
-                placeholder="Zip Code"
-                value={values.zipCode}
-                onChange={handleChange}
-            />
-            {touched.zipCode && errors.zipCode && (
-                <Error>{errors.zipCode}</Error>
-            )}
+            <InputContainer>
+                <Label htmlFor="zipCode"></Label>
+                <Input
+                    type="number"
+                    name="zipCode"
+                    placeholder="Zip Code"
+                    value={values.zipCode}
+                    onChange={handleChange}
+                />
+                {touched.zipCode && errors.zipCode && (
+                    <ErrorMsg>{errors.zipCode}</ErrorMsg>
+                )}
+            </InputContainer>
 
-            <label htmlFor="creditCard">Credit Card #: </label>
-            <Input
-                type="number"
-                name="creditCard"
-                placeholder="CC#"
-                value={values.creditCard}
-                onChange={handleChange}
-            />
-            {touched.creditCard && errors.creditCard && (
-                <Error>{errors.creditCard}</Error>
-            )}
+            <InputContainer>
+                <Label htmlFor="creditCard">Credit Card #: </Label>
+                <Input
+                    type="number"
+                    name="creditCard"
+                    placeholder="CC#"
+                    value={values.creditCard}
+                    onChange={handleChange}
+                />
+                {touched.creditCard && errors.creditCard && (
+                    <ErrorMsg>{errors.creditCard}</ErrorMsg>
+                )}
+            </InputContainer>
 
-            <label htmlFor="securityCode">Security Code: </label>
-            <Input
-                type="number"
-                name="securityCode"
-                placeholder="###"
-                value={values.securityCode}
-                onChange={handleChange}
-            />
-            {touched.securityCode && errors.securityCode && (
-                <Error>{errors.securityCode}</Error>
-            )}
+            <InputContainer>
+                <Label htmlFor="securityCode">Security Code: </Label>
+                <Input
+                    type="number"
+                    name="securityCode"
+                    placeholder="###"
+                    value={values.securityCode}
+                    onChange={handleChange}
+                />
+                {touched.securityCode && errors.securityCode && (
+                    <ErrorMsg>{errors.securityCode}</ErrorMsg>
+                )}
+            </InputContainer>
 
-            <label htmlFor="expiration">Expiration Date: </label>
-            <Input
-                type="date"
-                name="expiration"
-                placeholder="MM/YYYY"
-                value={values.expiration}
-                onChange={handleChange}
-            />
-            {touched.expiration && errors.expiration && (
-                <Error>{errors.expiration}</Error>
-            )}
+            <InputContainer>
+                <Label htmlFor="expiration">Expiration Date: </Label>
+                <Input
+                    type="date"
+                    name="expiration"
+                    placeholder="MM/YYYY"
+                    value={values.expiration}
+                    onChange={handleChange}
+                />
+                {touched.expiration && errors.expiration && (
+                    <ErrorMsg>{errors.expiration}</ErrorMsg>
+                )}
+            </InputContainer>
 
             <Button type="submit">Place Order</Button>
-        </Form>
+        </StyledForm>
     );
 };
 
@@ -153,9 +213,9 @@ const FormikOrderForm = withFormik({
             streetAddress: props.streetAddress || "",
             city: props.city || "",
             state: props.state || "",
-            zipCode: props.zipCode || 0,
-            creditCard: props.creditCard || 0,
-            securityCode: props.securityCode || 0,
+            zipCode: props.zipCode || "",
+            creditCard: props.creditCard || "",
+            securityCode: props.securityCode || "",
             expiration: props.expiration || ""
         };
     },
