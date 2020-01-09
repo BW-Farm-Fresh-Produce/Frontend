@@ -204,6 +204,20 @@ const OrderForm = ({ values, touched, errors, status, handleChange }) => {
     );
 };
 
+// Regular expression variables for validationSchema
+
+const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/g;
+
+const zipCodeRegExp = /^\d{5}(?:[-\s]\d{4})?$/g;
+
+const expirationRegExp = /(?:0[1-9]|1[0-2])([\/-]{1})([2]{1})([0]{1})([2]{1})([0-9]{1})/g;
+
+// regex from top voted answer here: https://stackoverflow.com/questions/201323/how-to-validate-an-email-address-using-a-regular-expression
+const emailRexExp = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/g;
+
+// regex from top voted answer here: https://stackoverflow.com/questions/9315647/regex-credit-card-number-tests
+const creditCardRegExp = /^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/g;
+
 const FormikOrderForm = withFormik({
     mapPropsToValues(props) {
         return {
@@ -221,21 +235,37 @@ const FormikOrderForm = withFormik({
     },
     validationSchema: Yup.object().shape({
         name: Yup.string().required("**Required"),
-        phone: Yup.string().required("**Required"),
-        email: Yup.string().required("**Required"),
+        phone: Yup.string()
+            .matches(phoneRegExp, "Invalid phone number")
+            .required("**Required"),
+        email: Yup.string()
+            .matches(emailRexExp, "Invalid email address")
+            .required("**Required"),
         streetAddress: Yup.string().required("**Required"),
         city: Yup.string().required("**Required"),
         state: Yup.string().required("**Required"),
         zipCode: Yup.number()
             .integer()
+            .positive()
+            .matches(zipCodeRegExp, "Invalid zip code")
             .required("**Required"),
         creditCard: Yup.number()
             .integer()
+            .positive()
+            .matches(creditCardRegExp, "Invalid credit card")
             .required("**Required"),
         securityCode: Yup.number()
             .integer()
+            .positive()
+            .min(3)
+            .max(4)
             .required("**Required"),
-        expiration: Yup.date().required("**Required")
+        expiration: Yup.string()
+            .matches(
+                expirationRegExp,
+                "Invalid date -- must be formatted as MM/YYYY or MM-YYYY"
+            )
+            .required("**Required")
     }),
     handleSubmit(values, { setStatus, resetForm }) {
         console.log("Submitting order form: ", values);
