@@ -47,13 +47,25 @@ const Label = styled.label`
     justify-content: center;
     padding: 5px 0;
 `;
+const SignUpCard = styled.div`
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-radius: 5px;
+    margin-top:50%;
+    margin-left:40%;
+    margin-right:40%;
+`;
+const Title = styled.h1`
+    font-family:courier;
+    text-align:center;
+`;
 const SignUpForm = ({values,errors,touched,status}) => {
     const [user,setUser] = useState()
     useEffect(()=>{
         status && setUser(user => [...user,status]);
     },[status]);
     return(
-        <div>
+        <SignUpCard>
+            <Title>Sign Up</Title>
             <FormFlex>
                 <Label htmlFor="username">Username:
                     <StyledInput 
@@ -75,6 +87,16 @@ const SignUpForm = ({values,errors,touched,status}) => {
                     {touched.password && errors.password && (
                             <p>{errors.password}</p>
                         )}
+                </Label>
+                <Label htmlFor="passwordConfirm">Confirm Password:
+                    <StyledInput 
+                        id="passwordConfirm"
+                        type="text"
+                        name="passwordConfirm"
+                    />
+                    {touched.passwordConfirm && errors.passwordConfirm &&(
+                        <p>Password does not match!!!</p>
+                    )}
                 </Label>
                 
                 <Label htmlFor="role">Role:
@@ -106,7 +128,7 @@ const SignUpForm = ({values,errors,touched,status}) => {
                 <Button type="submit">Sign Up!</Button>
             </FormFlex>
 
-        </div>
+        </SignUpCard>
         )
 }
 const FomrikSignUpForm = withFormik ({
@@ -121,6 +143,9 @@ const FomrikSignUpForm = withFormik ({
     validationSchema: Yup.object().shape({
     username: Yup.string().required("Username Required"),
     password: Yup.string().required("Password Required"),
+    passwordConfirm: Yup.string()
+        .oneOf([Yup.ref('password'),null])
+        .required("Password does not match!!!")
     
     }),
 

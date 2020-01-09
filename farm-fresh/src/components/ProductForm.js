@@ -40,7 +40,7 @@ const ButtonContainer = styled.div`
     width: 75%;
 `;
 
-const Button = styled.button`
+export const Button = styled.button`
     background: #a2df98;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
@@ -71,7 +71,7 @@ const Delete = styled.div`
     margin: 1rem auto;
 `;
 
-const Error = styled.p`
+export const Error = styled.p`
     color: red;
 `;
 
@@ -224,8 +224,6 @@ const FormikProductForm = withFormik({
     handleSubmit(values, { setStatus, resetForm }) {
         console.log("Submitting form: ", values);
         // setProducts(...products, product);
-
-
 
         // axios
         //     .post(

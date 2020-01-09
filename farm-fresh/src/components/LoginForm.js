@@ -3,18 +3,50 @@ import {withFormik,Form,Field} from "formik";
 import * as Yup from "yup";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 import styled from 'styled-components';
-// const LoginForm = ({values,errors,touched,status}) => {
-    
-//     const [user,setUser] =useState([])
-//     // local stat that holds the succesful form Submission.
-//     useEffect(()=>{
-//         status && setUser(user => [...user,status]);
-//     },[status]);
 
+const StyledInput = styled(Field)`
+    width: 200px;
+    border: 1px solid #ffffff;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 100%;
+    padding: 5px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.25);
+`;
+const Button = styled.button`
+    background: #a2df98;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    width: 150px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    margin: 1rem auto;
+`;
+const FormFlex = styled.form`
+    display: flex;
+    flex-direction:column;
+    flex-wrap:wrap;
+    align-content:center
+`;
 
-export const login = styled.div`
-    margin: 0 auto;
-    margin-top: 5 rem;
+const Label = styled.label`
+    display:flex
+    flex-direction: column;
+    justify-content: center;
+    padding: 5px 0;
+`;
+
+const LoginCard = styled.div`
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-radius: 5px;
+    margin-top:50%;
+    margin-left:40%;
+    margin-right:40%;
 `;
 
 const LoginForm =({props, values,errors,touched,status}) => {
@@ -27,6 +59,7 @@ const LoginForm =({props, values,errors,touched,status}) => {
   //declare states and constants
   const [loginValue, setLoginValue] = useState(loginObj);
   const [loginStatus, setLoginStatus] = useState(false);
+
 
   //typical handlechange
   const handleChange = e => {
@@ -54,15 +87,16 @@ const LoginForm =({props, values,errors,touched,status}) => {
       });
   };
 
-    return(
-        <section className="login">
-          {!loginStatus ? (
-            <Form onSubmit={handleSubmit}>
-                <label htmlFor="username">Username:</label>
-                    <Field
-                        id="userName"
+    return (
+        <LoginCard>
+            {!loginStatus ? (
+            <FormFlex onSubmit={handleSubmit}>
+                <Label htmlFor="username"> 
+                Login
+                    <StyledInput
+                        id="username"
                         type="text"
-                        name="userName"
+                        name="username"
                         placeholder="username"
                         value={loginValue.login}
                         onChange={handleChange}
@@ -71,8 +105,10 @@ const LoginForm =({props, values,errors,touched,status}) => {
                     {touched.userName && errors.userName && (
                         <p>{errors.userName}</p>
                     )}
-                <label htmlFor="password">Password:</label>
-                    <Field
+                </Label>
+                <Label htmlFor="password">
+                    Password
+                    <StyledInput
                         id="password"
                         type ="text"
                         name = "password"
@@ -83,21 +119,18 @@ const LoginForm =({props, values,errors,touched,status}) => {
                     {touched.password && errors.password && (
                         <p>{errors.password}</p>
                     )}
-              
+                </Label>
                 
-                <button type="submit">Login</button>
-            </Form>
-          ) : (
-            <p>Logging in...</p>
-          )}
-        </section>
+                <Button type ="submit">Sign In</Button>
+            </FormFlex>
+        </LoginCard>
     );
 };
 
 const FomrikLoginForm = withFormik ({
     mapPropsToValues(props){
         return {
-            name : props.userName || "",
+            name : props.username || "",
             password : props.password ||"",
         }
     },
@@ -105,7 +138,6 @@ const FomrikLoginForm = withFormik ({
     name: Yup.string().required("Username Required"),
     password: Yup.string().required("Password Required")
     }),
-
   })(LoginForm);
 
 export default FomrikLoginForm;
