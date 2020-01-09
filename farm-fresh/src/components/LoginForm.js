@@ -17,7 +17,52 @@ import React, {useState, useEffect} from "react";
 import {withFormik,Form,Field} from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import styled from "styled-components"
 
+const StyledInput = styled(Field)`
+    width: 200px;
+    border: 1px solid #ffffff;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 100%;
+    padding: 5px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.25);
+`;
+const Button = styled.button`
+    background: #a2df98;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    width: 150px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    margin: 1rem auto;
+`;
+const FormFlex = styled.form`
+    display: flex;
+    flex-direction:column;
+    flex-wrap:wrap;
+    align-content:center
+`;
+
+const Label = styled.label`
+    display:flex
+    flex-direction: column;
+    justify-content: center;
+    padding: 5px 0;
+`;
+
+const LoginCard = styled.div`
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-radius: 5px;
+    margin-top:50%;
+    margin-left:40%;
+    margin-right:40%;
+`;
 const LoginForm = ({values,errors,touched,status}) => {
     
     const [user,setUser] =useState([])
@@ -27,11 +72,11 @@ const LoginForm = ({values,errors,touched,status}) => {
     },[status]);
 
     return (
-        <div>
-            <Form>
-                <label htmlFor="userName"> 
+        <LoginCard>
+            <FormFlex>
+                <Label htmlFor="userName"> 
                 Login
-                    <Field
+                    <StyledInput
                         id="userName"
                         type="text"
                         name="userName"
@@ -40,10 +85,10 @@ const LoginForm = ({values,errors,touched,status}) => {
                     {touched.userName && errors.userName && (
                         <p>{errors.userName}</p>
                     )}
-                </label>
-                <label>
+                </Label>
+                <Label>
                     Password
-                    <Field
+                    <StyledInput
                         id="password"
                         type ="text"
                         name = "password"
@@ -52,11 +97,11 @@ const LoginForm = ({values,errors,touched,status}) => {
                     {touched.password && errors.password && (
                         <p>{errors.password}</p>
                     )}
-                </label>
+                </Label>
                 
-                <button type ="submit">Sign In</button>
-            </Form>
-        </div>
+                <Button type ="submit">Sign In</Button>
+            </FormFlex>
+        </LoginCard>
     );
 };
 
