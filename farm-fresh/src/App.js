@@ -1,12 +1,17 @@
 
-import React from 'react';
+import React, { useState } from 'react';
+
 
 //Navigation 
+import NavBar from './components/navigation/NavBar';
 import Routes from "./components/navigation/Routes";
 import Popup from "reactjs-popup";
 import BurgerIcon from "./components/navigation/BurgerIcon";
 import Menu from "./components/navigation/Menu";
 import "./index.css";
+
+
+
 
 
 
@@ -24,6 +29,7 @@ const contentStyle = {
 function App() {
   return (
     <div className="App">
+      <NavBar/>
       <Popup
         modal 
         overlayStyle={{ background: "rgba(255,255,255,0.98" }} 
@@ -34,8 +40,8 @@ function App() {
         {close => <Menu close={close} />} 
       </Popup>
       <Routes />
-      
     </div>
+
   );
 }
 

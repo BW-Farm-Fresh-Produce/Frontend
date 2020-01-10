@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
 
+
 import Product from "./Product";
 import { FiSearch } from "react-icons/fi";
 import { IoMdCloseCircleOutline } from "react-icons/io";
@@ -121,6 +122,9 @@ const Modal = ({ functionality, item, setModalOpen }) => {
     const [cost, setCost] = useState(0);
     const [quantity, setQuantity] = useState(0);
 
+    
+
+
     useEffect(() => {
         let total = quantity * item.price;
         total = total.toFixed(2);
@@ -128,6 +132,7 @@ const Modal = ({ functionality, item, setModalOpen }) => {
     }, [quantity, item.price]);
 
     return (
+
         <ModalBg>
             <ModalFormContainer>
                 <CloseIcon onClick={() => setModalOpen(false)} />
@@ -266,4 +271,4 @@ export default props => {
             </CardsContainer>
         </>
     );
-};
+                    };
