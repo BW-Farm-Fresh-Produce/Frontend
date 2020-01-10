@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { withFormik, Form, Field } from "formik";
+import { withFormik } from "formik";
 import * as Yup from "yup";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 import styled from "styled-components";
@@ -50,7 +50,7 @@ const LoginForm = ({ props, errors, touched }) => {
       .then(() => {
       
         setLoginValue(loginObj);
-        props.history.push("/dashboard");
+        props.history.push("/consumer");
       })
       .catch(err => {
         console.log("Error: ", err);
