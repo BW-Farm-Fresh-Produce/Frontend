@@ -35,12 +35,6 @@ const LoginForm = ({ props, errors, touched }) => {
         setLoginValue({ ...loginValue, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = e => {
-        //all submits refresh the page, prevent that
-        e.preventDefault();
-        //set editing to true for flavor
-        setLoginStatus(true);
-
 
   const handleSubmit = e => {
     //all submits refresh the page, prevent that
