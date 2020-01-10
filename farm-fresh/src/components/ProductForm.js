@@ -41,6 +41,7 @@ const ButtonContainer = styled.div`
 
 // for Farmers to add/edit an item
 const ProductForm = ({
+    functionality,
     productId,
     values,
     touched,
@@ -60,11 +61,32 @@ const ProductForm = ({
     const handleDelete = ({ product_id }) => {
         // needs to delete item from database
         axiosWithAuth()
-
             .delete(
-                `https://farm-life.herokuapp.com/farmer/product/${product_id}`)
+                `https://farm-life.herokuapp.com/farmer/product/${product_id}`
+            )
             .then(response => console.log("Delete response: ", response))
             .catch(error => console.log("Error deleting item: ", error));
+    };
+
+    const handleEdit = ({ product_id }) => {
+        //if item is preexisting, PUT request
+        axiosWithAuth()
+            .put(
+                `https://farm-life.herokuapp.com/farmer/product/${product_id}`,
+                values
+            )
+            .then(res => {
+                console.log("Item successfully updated: ", res);
+                alert("Inventory successfully updated");
+                // setStatus(res.data);
+                // resetForm();
+            })
+            .catch(err =>
+                console.log(
+                    "There was an error editing the item: ",
+                    err.response
+                )
+            );
     };
 
     console.log("errors:", errors);
@@ -78,6 +100,9 @@ const ProductForm = ({
     useEffect(() => {
         // just to check if it's working
         products.map(item => {
+            console.log("item.name: ", item.name);
+            console.log("item.quantity: ", item.quantity);
+            console.log("item.price: ", item.price);
             return (
                 <ul key={item.id}>
                     <li>Product name: {item.name}</li>
@@ -162,7 +187,13 @@ const ProductForm = ({
                 <OtherButton onClick={() => handleDelete(productId)}>
                     Delete item
                 </OtherButton>
-                <Button type="submit">Update inventory</Button>
+                {functionality === "Update" ? (
+                    <OtherButton onClick={() => handleEdit(productId)}>
+                        Update item
+                    </OtherButton>
+                ) : (
+                    <Button type="submit">Update inventory</Button>
+                )}
             </ButtonContainer>
         </Form>
     );
@@ -191,6 +222,7 @@ const FormikProductForm = withFormik({
         console.log("Submitting form: ", values);
         // setProducts(...products, product);
 
+        // if item was new, POST request
         // axios
         //     .post(
         //         "https://reqres.in/api/users/",

@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
-
 import { IoIosAddCircleOutline } from "react-icons/io";
 import Product from "./Product";
 import {
@@ -38,7 +37,7 @@ const AddIcon = styled(IoIosAddCircleOutline)`
     margin-right: 0.25rem;
 `;
 
-const Modal = ({ functionality, item, productId, setModalOpen }) => {
+const Modal = ({ functionality, item, setModalOpen }) => {
     return (
         <ModalBg>
             <ModalFormContainer>
@@ -50,7 +49,7 @@ const Modal = ({ functionality, item, productId, setModalOpen }) => {
                 ) : (
                     <FormTitle>{functionality} inventory </FormTitle>
                 )}
-                <FormikProductForm {...item} />
+                <FormikProductForm {...item} functionality={functionality} />
             </ModalFormContainer>
         </ModalBg>
     );
