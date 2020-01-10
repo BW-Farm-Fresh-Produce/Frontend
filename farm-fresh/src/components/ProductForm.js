@@ -48,8 +48,6 @@ const ProductForm = ({
     errors,
     status,
     handleChange
-    // handleBlur,
-    // handleSubmit
 }) => {
     // for testing to see if the form is working
     const [products, setProducts] = useState([]);
@@ -63,9 +61,9 @@ const ProductForm = ({
     const handleDelete = ({ product_id }) => {
         // needs to delete item from database
         axiosWithAuth()
+
             .delete(
-                `https://farm-life.herokuapp.com/farmer/product/${product_id}`
-            )
+                `https://farm-life.herokuapp.com/farmer/product/${product_id}`)
             .then(response => console.log("Delete response: ", response))
             .catch(error => console.log("Error deleting item: ", error));
     };
