@@ -73,7 +73,7 @@ const LoginForm =({props,errors,touched}) => {
     setLoginStatus(true);
     
     axiosWithAuth()
-      .post("/login", loginValue)
+      .post("/auth/login", loginValue)
       .then(res => {
         localStorage.setItem("token", res.data.payload);
       })
