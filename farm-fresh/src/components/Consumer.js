@@ -123,7 +123,6 @@ const Modal = ({ functionality, item, setModalOpen }) => {
     const [cost, setCost] = useState(0);
     const [quantity, setQuantity] = useState(0);
 
-    
 
 
     useEffect(() => {

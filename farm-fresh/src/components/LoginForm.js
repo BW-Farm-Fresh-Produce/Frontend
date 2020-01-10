@@ -19,7 +19,7 @@ const LoginCard = styled.div`
     padding-top: 0.5rem;
 `;
 
-const LoginForm = ({ props, errors, touched }) => {
+const LoginForm = ({ history, errors, touched }) => {
     //declare an empty obj for easiness
     const loginObj = {
         username: "",
@@ -45,12 +45,11 @@ const LoginForm = ({ props, errors, touched }) => {
     axiosWithAuth()
       .post("/auth/login", loginValue)
       .then(res => {
+        console.log(res,history)
         localStorage.setItem("token", res.data.payload);
-      })
-      .then(() => {
-      
+         
         setLoginValue(loginObj);
-        props.history.push("/consumer");
+       history.push("/consumer");
       })
       .catch(err => {
         console.log("Error: ", err);

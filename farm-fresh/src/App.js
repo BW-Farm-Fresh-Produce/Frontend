@@ -1,25 +1,22 @@
 
-import React, { useState } from 'react';
-
+import React from 'react';
+import { Route } from 'react-router-dom';
 
 //Navigation 
 import NavBar from './components/navigation/NavBar';
-import Routes from "./components/navigation/Routes";
 import Popup from "reactjs-popup";
 import BurgerIcon from "./components/navigation/BurgerIcon";
 import Menu from "./components/navigation/Menu";
 import "./index.css";
 
+//Components
+import LoginForm from './components/LoginForm';
+import PrivateRoute from './components/PrivateRoute';
+import SignUpForm from './components/SignupForm';
+import Consumer from './components/Consumer';
+import Farmer from './components/Farmer';
 
 
-
-
-
-const styles = {
-  fontFamily: "sans-serif",
-  textAlign: "center",
-  marginTop: "40px"
-};
 const contentStyle = {
   background: "rgba(255,255,255,0)",
   width: "80%",
@@ -39,7 +36,11 @@ function App() {
       >
         {close => <Menu close={close} />} 
       </Popup>
-      <Routes />
+            <Route exact path="/" component={SignUpForm} />
+            <Route path="/login" component={LoginForm} /> 
+            <Route path="/logout" component={LoginForm} /> 
+            <PrivateRoute path="/consumer" component={Consumer} />
+            <PrivateRoute path="/farmer" component={Farmer} />
     </div>
 
   );
