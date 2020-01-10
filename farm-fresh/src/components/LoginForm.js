@@ -6,12 +6,17 @@ import styled from "styled-components";
 
 import { FormFlex, Label, StyledInput, Button } from "./StyledComponents";
 
+const Input = styled(StyledInput)`
+    width: 200px;
+`;
+
 const LoginCard = styled.div`
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     border-radius: 5px;
     margin-top: 15%;
     margin-left: 40%;
     margin-right: 40%;
+    padding-top: 0.5rem;
 `;
 
 const LoginForm = ({ props, errors, touched }) => {
@@ -56,7 +61,7 @@ const LoginForm = ({ props, errors, touched }) => {
                 <FormFlex onSubmit={handleSubmit}>
                     <Label htmlFor="username">
                         Login
-                        <StyledInput
+                        <Input
                             id="username"
                             type="text"
                             name="username"
@@ -70,7 +75,7 @@ const LoginForm = ({ props, errors, touched }) => {
                     </Label>
                     <Label htmlFor="password">
                         Password
-                        <StyledInput
+                        <Input
                             id="password"
                             type="text"
                             name="password"

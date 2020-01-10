@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { withFormik, Form, Field } from "formik";
+import { withFormik } from "formik";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
 import { axiosWithAuth } from "axios";
@@ -18,6 +18,13 @@ const SignUpCard = styled.div`
 const Title = styled.h1`
     font-family: courier;
     text-align: center;
+    padding-top: 0.5rem;
+`;
+
+const LinkContainer = styled.div`
+    width: fit-content;
+    margin: 0 auto;
+    padding-bottom: 0.5rem;
 `;
 
 const SignUpForm = ({ errors, touched, props }) => {
@@ -164,7 +171,9 @@ const SignUpForm = ({ errors, touched, props }) => {
 
                 <Button type="submit">Sign Up!</Button>
             </FormFlex>
-            <Link to="/login">I already have an account</Link>
+            <LinkContainer>
+                <Link to="/login">I already have an account</Link>
+            </LinkContainer>
         </SignUpCard>
     );
 };
