@@ -41,19 +41,27 @@ const LoginForm = ({ props, errors, touched }) => {
         //set editing to true for flavor
         setLoginStatus(true);
 
-        axiosWithAuth()
-            .post("/login", loginValue)
-            .then(res => {
-                localStorage.setItem("token", res.data.payload);
-            })
-            .then(() => {
-                setLoginValue(loginObj);
-                props.history.push("/dashboard");
-            })
-            .catch(err => {
-                console.log("Error: ", err);
-            });
-    };
+
+  const handleSubmit = e => {
+    //all submits refresh the page, prevent that
+    e.preventDefault();
+    //set editing to true for flavor
+    setLoginStatus(true);
+    
+    axiosWithAuth()
+      .post("/auth/login", loginValue)
+      .then(res => {
+        localStorage.setItem("token", res.data.payload);
+      })
+      .then(() => {
+      
+        setLoginValue(loginObj);
+        props.history.push("/dashboard");
+      })
+      .catch(err => {
+        console.log("Error: ", err);
+      });
+  };
 
     return (
         <LoginCard>
