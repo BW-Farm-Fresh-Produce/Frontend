@@ -35,8 +35,8 @@ const FlexContainer = styled.div`
   height: 5rem;
 `;
 const Image = styled.img`
-  height: 85%;
-  margin: auto 0;
+  height: 100%;
+  margin-left: 90%;
   position: right;
 `
 

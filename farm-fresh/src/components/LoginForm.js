@@ -44,12 +44,12 @@ const Label = styled.label`
 const LoginCard = styled.div`
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     border-radius: 5px;
-    margin-top:50%;
+    margin-top:15%;
     margin-left:40%;
     margin-right:40%;
 `;
 
-const LoginForm =({props, values,errors,touched,status}) => {
+const LoginForm =({props,errors,touched}) => {
   //declare an empty obj for easiness
   const loginObj = {
     username: "",
@@ -123,6 +123,9 @@ const LoginForm =({props, values,errors,touched,status}) => {
                 
                 <Button type ="submit">Sign In</Button>
             </FormFlex>
+            ) :(
+              <p>Logging in...</p>
+            )}
         </LoginCard>
     );
 };
