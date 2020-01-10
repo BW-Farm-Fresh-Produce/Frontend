@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
-
+import {connect} from 'react-redux';
 
 import Product from "./Product";
 import { FiSearch } from "react-icons/fi";

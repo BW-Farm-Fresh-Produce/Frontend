@@ -2,6 +2,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
+
 //Navigation 
 import NavBar from './components/navigation/NavBar';
 import Popup from "reactjs-popup";
