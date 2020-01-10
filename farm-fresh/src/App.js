@@ -15,7 +15,17 @@ import PrivateRoute from './components/PrivateRoute';
 import SignUpForm from './components/SignupForm';
 import Consumer from './components/Consumer';
 import Farmer from './components/Farmer';
+import Faq from './components/Faq';
 
+
+
+
+
+const styles = {
+  fontFamily: "sans-serif",
+  textAlign: "center",
+  marginTop: "40px"
+};
 
 const contentStyle = {
   background: "rgba(255,255,255,0)",
@@ -37,10 +47,11 @@ function App() {
         {close => <Menu close={close} />} 
       </Popup>
             <Route exact path="/" component={SignUpForm} />
-            <Route path="/login" component={LoginForm} /> 
-            <Route path="/logout" component={LoginForm} /> 
-            <PrivateRoute path="/consumer" component={Consumer} />
-            <PrivateRoute path="/farmer" component={Farmer} />
+            <Route path="/login" component={LoginForm} />
+            <Route path="/logout" component={LoginForm} />
+            <Route path="/faq" component={Faq} />
+            <Route path="/consumer" component={Consumer} />
+            <Route path="/farmer" component={Farmer} />
     </div>
 
   );
