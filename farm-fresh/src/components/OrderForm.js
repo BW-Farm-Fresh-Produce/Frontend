@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { withFormik, Form, Field } from "formik";
-import axios from "axios";
+import axiosWithAuth from "../utils/axiosWithAuth";
 import * as Yup from "yup";
 
 import { Button, Error } from "./ProductForm";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 const StyledForm = styled(Form)`
     width: 80%;
@@ -240,22 +241,17 @@ const FormikOrderForm = withFormik({
     handleSubmit(values, { setStatus, resetForm }) {
         console.log("Submitting order form: ", values);
 
-        // axios
-        //     .post("URL", {
-        //         headers: {
-        //             authorization: "CONSUMER AUTHORIZATION HERE"
-        //         },
-        //         values
-        //     })
-        //     .then(response => {
-        //         console.log("Order successfully placed: ", response);
-        //         alert("Order successfully placed");
-        //         setStatus(response.data);
-        //         resetForm();
-        //     })
-        //     .catch(error =>
-        //         console.log("There was an error: ", error.response)
-        //     );
+        axiosWithAuth()
+            .post("farmer/product/orders")
+            .then(response => {
+                console.log("Order successfully placed: ", response);
+                alert("Order successfully placed");
+                setStatus(response.data);
+                resetForm();
+            })
+            .catch(error =>
+                console.log("There was an error: ", error.response)
+            );
     }
 })(OrderForm);
 

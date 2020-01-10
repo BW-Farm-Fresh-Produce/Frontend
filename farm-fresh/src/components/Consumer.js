@@ -7,6 +7,7 @@ import styled from "styled-components";
 import Product from "./Product";
 import { FiSearch } from "react-icons/fi";
 import { IoMdCloseCircleOutline } from "react-icons/io";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 const SearchBarContainer = styled.div`
     width: 80%;
@@ -210,8 +211,8 @@ export default props => {
 
     useEffect(() => {
         // API call to get available products
-        axios
-            .get("https://farm-life.herokuapp.com/farmer/product/products")
+        axiosWithAuth()
+            .get("farmer/product/products")
             .then(response => {
                 console.log("Response: ", response);
                 setProducts(response.product);
