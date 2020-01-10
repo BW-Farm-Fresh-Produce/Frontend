@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { withFormik, Form, Field } from "formik";
+import { withFormik } from "formik";
 import * as Yup from "yup";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 import styled from "styled-components";
@@ -35,12 +35,6 @@ const LoginForm = ({ props, errors, touched }) => {
         setLoginValue({ ...loginValue, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = e => {
-        //all submits refresh the page, prevent that
-        e.preventDefault();
-        //set editing to true for flavor
-        setLoginStatus(true);
-
 
   const handleSubmit = e => {
     //all submits refresh the page, prevent that
@@ -56,7 +50,7 @@ const LoginForm = ({ props, errors, touched }) => {
       .then(() => {
       
         setLoginValue(loginObj);
-        props.history.push("/dashboard");
+        props.history.push("/consumer");
       })
       .catch(err => {
         console.log("Error: ", err);
