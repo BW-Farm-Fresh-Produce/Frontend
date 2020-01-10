@@ -4,7 +4,7 @@ import { withFormik, Form, Field } from "formik";
 import axios from "axios";
 import * as Yup from "yup";
 
-import { Button, Error } from "./ProductForm";
+import { StyledInput, Button, Error } from "./StyledComponents";
 
 const StyledForm = styled(Form)`
     width: 80%;
@@ -31,18 +31,9 @@ const Label = styled.label`
     justify-self: flex-end;
 `;
 
-const Input = styled(Field)`
+const Input = styled(StyledInput)`
     grid-area: input;
     width: 200px;
-    height: 30px;
-    border: 1px solid #ffffff;
-    border-radius: 5px;
-    font-family: inherit;
-    font-size: 100%;
-    padding: 5px;
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.25);
-    box-sizing: border-box;
-    background: white;
 `;
 
 const ErrorMsg = styled(Error)`

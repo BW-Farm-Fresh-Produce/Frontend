@@ -5,30 +5,30 @@ import axios from "axios";
 import styled from "styled-components";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
+import {
+    Label,
+    StyledInput,
+    Button,
+    OtherButton,
+    Error
+} from "./StyledComponents";
+
 const FormGrid = styled.div`
     display: grid;
     grid-template-columns: 150px 1fr;
     grid-gap: 1rem;
 `;
 
-const Label = styled.label`
+const ProductLabel = styled(Label)`
     justify-self: end;
     align-self: start;
-    padding: 5px 0;
 `;
 
-const Input = styled(Field)`
+const Input = styled(StyledInput)`
     width: 200px;
-    height: 30px;
-    border: 1px solid #ffffff;
-    border-radius: 5px;
-    font-family: inherit;
-    font-size: 100%;
-    padding: 5px;
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.25);
-    box-sizing: border-box;
-    background: white;
     margin-left: ${props => (props.isPrice ? "0.5rem" : "1rem")};
+    margin-top: 0;
+    margin-bottom: 0;
 `;
 
 const ButtonContainer = styled.div`
@@ -38,41 +38,6 @@ const ButtonContainer = styled.div`
     align-items: center;
     margin: 0 auto;
     width: 75%;
-`;
-
-export const Button = styled.button`
-    background: #a2df98;
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.25);
-    border-radius: 10px;
-    width: 150px;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 1rem;
-    font-size: 1rem;
-    cursor: pointer;
-    margin: 1rem auto;
-    font-family: inherit;
-`;
-
-const Delete = styled.div`
-    background: #a2df98;
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.25);
-    border-radius: 10px;
-    width: 150px;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 1rem;
-    font-size: 1rem;
-    cursor: pointer;
-    margin: 1rem auto;
-`;
-
-export const Error = styled.p`
-    color: red;
 `;
 
 // for Farmers to add/edit an item
@@ -98,8 +63,10 @@ const ProductForm = ({
     const handleDelete = ({ product_id }) => {
         // needs to delete item from database
         axiosWithAuth()
-            .delete(`https://farm-life.herokuapp.com/farmer/product/${product_id}`)
-.then(response => console.log("Delete response: ", response))
+            .delete(
+                `https://farm-life.herokuapp.com/farmer/product/${product_id}`
+            )
+            .then(response => console.log("Delete response: ", response))
             .catch(error => console.log("Error deleting item: ", error));
     };
 
@@ -130,7 +97,7 @@ const ProductForm = ({
     return (
         <Form>
             <FormGrid>
-                <Label htmlFor="name">Product name: </Label>
+                <ProductLabel htmlFor="name">Product name: </ProductLabel>
                 <div>
                     <Input
                         type="text"
@@ -143,7 +110,9 @@ const ProductForm = ({
                         <Error>{errors.name}</Error>
                     )}
                 </div>
-                <Label htmlFor="quantity">Available quantity: </Label>
+                <ProductLabel htmlFor="quantity">
+                    Available quantity:{" "}
+                </ProductLabel>
                 <div>
                     <Input
                         type="number"
@@ -156,7 +125,7 @@ const ProductForm = ({
                         <Error>{errors.quantity}</Error>
                     )}
                 </div>
-                <Label htmlFor="quantity_unit">Unit: </Label>
+                <ProductLabel htmlFor="quantity_unit">Unit: </ProductLabel>
                 <div>
                     <Input
                         as="select"
@@ -175,7 +144,7 @@ const ProductForm = ({
                         <Error>{errors.quantity_unit}</Error>
                     )}
                 </div>
-                <Label htmlFor="price">Price: </Label>
+                <ProductLabel htmlFor="price">Price: </ProductLabel>
                 <div>
                     $
                     <Input
@@ -193,9 +162,9 @@ const ProductForm = ({
                 </div>
             </FormGrid>
             <ButtonContainer>
-                <Delete onClick={() => handleDelete(productId)}>
+                <OtherButton onClick={() => handleDelete(productId)}>
                     Delete item
-                </Delete>
+                </OtherButton>
                 <Button type="submit">Update inventory</Button>
             </ButtonContainer>
         </Form>
