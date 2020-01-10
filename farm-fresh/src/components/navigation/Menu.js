@@ -23,6 +23,9 @@ export default ({ close }) => (
                 <StyledLink to="/logout">Logout</StyledLink>
             </li>
             <li onClick={close}>
+                <StyledLink to="/faq">FAQ</StyledLink>
+            </li>
+            <li onClick={close}>
                 <StyledLink to="/consumer">Store</StyledLink>
             </li>
             <li onClick={close}>
