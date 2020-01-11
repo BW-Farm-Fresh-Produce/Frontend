@@ -1,6 +1,18 @@
 import styled from "styled-components";
 import { Form, Field } from "formik";
 
+export const Card = styled.div`
+    background: #ffffff;
+    border: 1px solid #ffffff;
+    box-sizing: border-box;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding-bottom: 0.5rem;
+`;
+
 export const FormFlex = styled(Form)`
     display: flex;
     flex-direction: column;

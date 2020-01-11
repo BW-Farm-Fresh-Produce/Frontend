@@ -3,18 +3,7 @@ import styled from "styled-components";
 
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { MdEdit } from "react-icons/md";
-
-const Card = styled.div`
-    background: #ffffff;
-    border: 1px solid #ffffff;
-    box-sizing: border-box;
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.25);
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    padding-bottom: 0.5rem;
-`;
+import { Card } from "./StyledComponents";
 
 const AddIcon = styled(IoIosAddCircleOutline)`
     position: absolute;

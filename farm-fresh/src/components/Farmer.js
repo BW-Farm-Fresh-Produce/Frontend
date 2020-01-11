@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
+import { Link, Route } from "react-router-dom";
 
 import { IoIosAddCircleOutline } from "react-icons/io";
 import Product from "./Product";
@@ -14,6 +15,16 @@ import {
     FormTitle
 } from "./Consumer";
 import FormikProductForm from "./ProductForm";
+import FarmerOrders from "./FarmerOrders";
+
+const StyledLink = styled(Link)`
+    text-decoration: none;
+    color: black;
+
+    &:hover {
+        text-decoration: underline;
+    }
+`;
 
 const FarmerContainer = styled.div`
     margin-top: 100px;
@@ -26,10 +37,17 @@ const AddItemContainer = styled.div`
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
+    justify-content: space-between;
 
     p {
         cursor: pointer;
     }
+`;
+
+const AddItemWrapper = styled.div`
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
 `;
 
 const AddIcon = styled(IoIosAddCircleOutline)`
@@ -110,23 +128,27 @@ export default () => {
                 />
             )}
             <AddItemContainer>
-                <AddIcon
-                    onClick={() => {
-                        setModalOpen(!modalOpen);
-                        setEditItem({}); // reset editItem
-                        setFormFunctionality("Add");
-                    }}
-                />
-                <p
-                    onClick={() => {
-                        setModalOpen(!modalOpen);
-                        setEditItem({}); // reset editItem
-                        setFormFunctionality("Add");
-                    }}
-                >
-                    Add item
-                </p>
+                <AddItemWrapper>
+                    <AddIcon
+                        onClick={() => {
+                            setModalOpen(!modalOpen);
+                            setEditItem({}); // reset editItem
+                            setFormFunctionality("Add");
+                        }}
+                    />
+                    <p
+                        onClick={() => {
+                            setModalOpen(!modalOpen);
+                            setEditItem({}); // reset editItem
+                            setFormFunctionality("Add");
+                        }}
+                    >
+                        Add item
+                    </p>
+                </AddItemWrapper>
+                <StyledLink to="/farmer/orders">View Orders</StyledLink>
             </AddItemContainer>
+
             <CardsContainer>
                 {inventory.length !== 0 &&
                     inventory.map(product => (

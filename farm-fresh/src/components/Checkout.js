@@ -124,7 +124,7 @@ export default () => {
                             let total = item.price * item.quantity;
                             return (
                                 <ItemContainer key={index}>
-                                    <ItemName>{item.item_name}</ItemName>
+                                    <ItemName>{item.product_name}</ItemName>
                                     {/* make quantity type plural when necessary */}
                                     {item.quantity !== 1 ? (
                                         <ItemQty>
@@ -143,7 +143,7 @@ export default () => {
                 </Cart>
                 <FarmInfo>
                     Farm address here
-                    {/* ASK KIM IF PRODUCTS HAVE ID'S TIED TO THEIR FARMS --> WOULD LIKE TO PUT FARM NAME AND ADDRESS ON THE REVIEW ORDER/CHECKOUT FORM PAGE */}
+                    {/* Backend didn't include way to access farm info with the items the consumer ordered*/}
                 </FarmInfo>
             </OrderInfo>
             <FormikOrderForm />

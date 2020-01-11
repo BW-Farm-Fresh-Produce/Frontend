@@ -52,9 +52,9 @@ const ProductForm = ({
     // for testing to see if the form is working
     const [products, setProducts] = useState([]);
     const [product, setProduct] = useState({
-        name: "",
+        product_name: "",
         quantity: 0,
-        quantity_unit: "",
+        quantity_type: "",
         price: 0
     });
 
@@ -100,7 +100,7 @@ const ProductForm = ({
     useEffect(() => {
         // just to check if it's working
         products.map(item => {
-            console.log("item.name: ", item.name);
+            console.log("item.product_name: ", item.product_name);
             console.log("item.quantity: ", item.quantity);
             console.log("item.price: ", item.price);
             return (
@@ -108,7 +108,7 @@ const ProductForm = ({
                     <li>Product name: {item.name}</li>
                     <li>
                         Available quantity: {item.quantity}
-                        {item.quantity_unit}
+                        {item.quantity_type}
                     </li>
                     <li>Price: {item.price}</li>
                 </ul>
@@ -119,17 +119,19 @@ const ProductForm = ({
     return (
         <Form>
             <FormGrid>
-                <ProductLabel htmlFor="name">Product name: </ProductLabel>
+                <ProductLabel htmlFor="product_name">
+                    Product name:{" "}
+                </ProductLabel>
                 <div>
                     <Input
                         type="text"
-                        name="name"
+                        name="product_name"
                         placeholder="Product name"
-                        value={values.name}
+                        value={values.product_name}
                         onChange={handleChange}
                     />{" "}
-                    {touched.name && errors.name && (
-                        <Error>{errors.name}</Error>
+                    {touched.product_name && errors.product_name && (
+                        <Error>{errors.product_name}</Error>
                     )}
                 </div>
                 <ProductLabel htmlFor="quantity">
@@ -147,11 +149,11 @@ const ProductForm = ({
                         <Error>{errors.quantity}</Error>
                     )}
                 </div>
-                <ProductLabel htmlFor="quantity_unit">Unit: </ProductLabel>
+                <ProductLabel htmlFor="quantity_Type">Unit: </ProductLabel>
                 <div>
                     <Input
                         as="select"
-                        name="quantity_unit"
+                        name="quantity_type"
                         onChange={handleChange}
                     >
                         <option disabled>Choose a unit</option>
@@ -162,8 +164,8 @@ const ProductForm = ({
                         <option value="peck">peck</option>
                         <option value="bushel">bushel</option>
                     </Input>
-                    {touched.quantity_unit && errors.quantity_unit && (
-                        <Error>{errors.quantity_unit}</Error>
+                    {touched.quantity_type && errors.quantity_type && (
+                        <Error>{errors.quantity_type}</Error>
                     )}
                 </div>
                 <ProductLabel htmlFor="price">Price: </ProductLabel>
@@ -177,7 +179,7 @@ const ProductForm = ({
                         value={values.price}
                         onChange={handleChange}
                     />{" "}
-                    / {values.quantity_unit}
+                    / {values.quantity_type}
                     {touched.price && errors.price && (
                         <Error>{errors.price}</Error>
                     )}
@@ -202,18 +204,18 @@ const ProductForm = ({
 const FormikProductForm = withFormik({
     mapPropsToValues(props) {
         return {
-            name: props.name || "",
+            product_name: props.product_name || "",
             quantity: props.quantity || 0,
-            quantity_unit: props.quantity_unit || "unit",
+            quantity_type: props.quantity_type || "unit",
             price: props.price || 0
         };
     },
     validationSchema: Yup.object().shape({
-        name: Yup.string().required("**Required"),
+        product_name: Yup.string().required("**Required"),
         quantity: Yup.number("Quantity must be a number")
             .positive("Quantity must be greater than zero")
             .required("**Required"),
-        quantity_unit: Yup.string().required("**Required"),
+        quantity_type: Yup.string().required("**Required"),
         price: Yup.number("Price must be a number")
             .positive("Price must be greater than zero")
             .required("**Required")
@@ -223,24 +225,15 @@ const FormikProductForm = withFormik({
         // setProducts(...products, product);
 
         // if item was new, POST request
-        // axios
-        //     .post(
-        //         "https://reqres.in/api/users/",
-        //         {
-        //             headers: {
-        //                 authorization: "FARMER AUTHORIZATION HERE",
-        //                 "Content-type": "application/json"
-        //             }
-        //         },
-        //         values
-        //     )
-        //     .then(res => {
-        //         console.log("Item successfully submitted: ", res);
-        //         alert("Inventory successfully updated");
-        //         setStatus(res.data);
-        //         resetForm();
-        //     })
-        //     .catch(err => console.log("There was an error: ", err.response));
+        axiosWithAuth()
+            .post("https://farm-life.herokuapp.com/farmer/product", values)
+            .then(res => {
+                console.log("Item successfully submitted: ", res);
+                alert("Inventory successfully updated");
+                setStatus(res.data);
+                resetForm();
+            })
+            .catch(err => console.log("There was an error: ", err.response));
     }
 })(ProductForm);
 
