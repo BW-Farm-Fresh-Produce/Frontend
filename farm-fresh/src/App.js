@@ -13,6 +13,7 @@ import LoginForm from "./components/LoginForm";
 import PrivateRoute from "./components/PrivateRoute";
 import SignUpForm from "./components/SignupForm";
 import Consumer from "./components/Consumer";
+import Checkout from "./components/Checkout";
 import Farmer from "./components/Farmer";
 import FarmerOrders from "./components/FarmerOrders";
 import Faq from "./components/Faq";
@@ -46,7 +47,8 @@ function App() {
             <Route path="/login" component={LoginForm} />
             <Route path="/logout" component={LoginForm} />
             <Route path="/faq" component={Faq} />
-            <Route path="/consumer" component={Consumer} />
+            <Route exact path="/consumer" component={Consumer} />
+            <Route exact path="/consumer/checkout" component={Checkout} />
             <Route exact path="/farmer" component={Farmer} />
             <Route exact path="/farmer/orders" component={FarmerOrders} />
         </div>

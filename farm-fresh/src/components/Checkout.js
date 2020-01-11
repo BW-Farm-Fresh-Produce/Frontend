@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 import styled from "styled-components";
 
 import FormikOrderForm from "./OrderForm";
@@ -73,7 +73,7 @@ const ItemPrice = styled.p`
 const FarmInfo = styled.div``;
 
 export default () => {
-    // fake data for now since database is empty
+    // fake data for now
     const [cartItems, setCartItems] = useState([
         {
             item_name: "Strawberries",
@@ -96,12 +96,8 @@ export default () => {
     ]);
 
     // useEffect(() => {
-    //     axios
-    //         .get("https://farm-life.herokuapp.com/cart/items", {
-    //             headers: {
-    //                 authorization: "CONSUMER AUTHORIZATION HERE"
-    //             }
-    //         })
+    //     axiosWithAuth()
+    //         .get("https://farm-life.herokuapp.com/cart/items")
     //         .then(response => {
     //             console.log("Successfully retrieved Cart: ", response);
     //             setCartItems(response.items);

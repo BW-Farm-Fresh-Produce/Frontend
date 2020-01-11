@@ -1,18 +1,24 @@
 // Consumer "home" page after logging in
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import styled from "styled-components";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 import Product from "./Product";
 import { FiSearch } from "react-icons/fi";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
-const SearchBarContainer = styled.div`
+const FlexContainer = styled.div`
     width: 80%;
     max-width: 960px;
-    margin: 110px auto 0;
+    margin: 100px auto 0;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+`;
+
+const SearchBarContainer = styled.div`
     text-align: left;
 `;
 
@@ -28,6 +34,11 @@ const SearchBar = styled.input`
     border-radius: 8px;
     border: 1px solid gray;
     font-size: 1rem;
+`;
+
+const StyledLink = styled(Link)`
+    text-decoration: none;
+    color: black;
 `;
 
 export const CardsContainer = styled.div`
@@ -212,6 +223,7 @@ export default props => {
     const [modalOpen, setModalOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
     const [searchResults, setSearchResults] = useState(products);
+    const [formFunctionality, setFormFunctionality] = useState("Add");
 
     // useEffect(() => {
     //     // API call to get available products
@@ -247,21 +259,24 @@ export default props => {
                     setModalOpen={setModalOpen}
                 />
             )}
-            <SearchBarContainer>
-                <form>
-                    <label htmlFor="city">
-                        <SearchIcon />
-                    </label>
-                    <SearchBar
-                        id="city"
-                        type="text"
-                        name="textfield"
-                        placeholder="Search by city"
-                        value={searchTerm}
-                        onChange={handleSearchBarChange}
-                    />
-                </form>
-            </SearchBarContainer>
+            <FlexContainer>
+                <SearchBarContainer>
+                    <form>
+                        <label htmlFor="city">
+                            <SearchIcon />
+                        </label>
+                        <SearchBar
+                            id="city"
+                            type="text"
+                            name="textfield"
+                            placeholder="Search by city"
+                            value={searchTerm}
+                            onChange={handleSearchBarChange}
+                        />
+                    </form>
+                </SearchBarContainer>
+                <StyledLink to="/consumer/checkout">Cart</StyledLink>
+            </FlexContainer>
             <CardsContainer>
                 {searchResults &&
                     searchResults.map(product => (
@@ -271,6 +286,7 @@ export default props => {
                             setAddItem={setAddItem}
                             setModalOpen={setModalOpen}
                             modalOpen={modalOpen}
+                            setFormFunctionality={setFormFunctionality}
                         />
                     ))}
             </CardsContainer>
