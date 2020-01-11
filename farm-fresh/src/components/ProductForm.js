@@ -187,9 +187,9 @@ const ProductForm = ({
                 <OtherButton onClick={() => handleDelete(productId)}>
                     Delete item
                 </OtherButton>
-                {functionality === "Update" ? (
+                {functionality === "Update" || functionality === "Add" ? (
                     <OtherButton onClick={() => handleEdit(productId)}>
-                        Update item
+                        {functionality} item
                     </OtherButton>
                 ) : (
                     <Button type="submit">Update inventory</Button>

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
-import {connect} from 'react-redux';
+import { connect } from "react-redux";
 
 import Product from "./Product";
 import { FiSearch } from "react-icons/fi";
@@ -34,12 +34,17 @@ export const CardsContainer = styled.div`
     display: grid;
     width: 80%;
     max-width: 960px;
-    grid-template-columns: repeat(auto-fill, 250px);
+    grid-template-columns: repeat(auto-fill, 300px);
     grid-template-rows: repeat(auto-fill, minmax(100px, 1fr));
-    grid-gap: 50px;
+    grid-gap: 30px;
     text-align: center;
-    margin: 0 auto;
-    margin-top: 1.5rem;
+    margin: 1.5rem auto;
+
+    @media (max-width: 400px) {
+        grid-column-gap: unset;
+        grid-template-columns: auto;
+        width: 90%;
+    }
 `;
 
 export const ModalBg = styled.div`
@@ -118,12 +123,9 @@ const Button = styled.div`
     cursor: pointer;
 `;
 
-
 const Modal = ({ functionality, item, setModalOpen }) => {
     const [cost, setCost] = useState(0);
     const [quantity, setQuantity] = useState(0);
-
-
 
     useEffect(() => {
         let total = quantity * item.price;
@@ -132,16 +134,15 @@ const Modal = ({ functionality, item, setModalOpen }) => {
     }, [quantity, item.price]);
 
     return (
-
         <ModalBg>
             <ModalFormContainer>
                 <CloseIcon onClick={() => setModalOpen(false)} />
                 <FormTitle>
-                    {functionality} {item.name}
+                    {functionality} {item.product_name}
                 </FormTitle>
                 <ModalGrid>
                     <Label>Product name: </Label>
-                    <p>{item.name}</p>
+                    <p>{item.product_name}</p>
                     <Labe htmlFor="quantity">Quantity: </Labe>
                     <Input
                         type="number"
@@ -157,9 +158,7 @@ const Modal = ({ functionality, item, setModalOpen }) => {
                     <Label>Total cost: </Label>
                     <p>${cost}</p>
                 </ModalGrid>
-                <Button >
-                    {functionality} to Cart
-                </Button>
+                <Button>{functionality} to Cart</Button>
             </ModalFormContainer>
         </ModalBg>
     );
@@ -170,36 +169,42 @@ export default props => {
     const [products, setProducts] = useState([
         {
             product_id: 4321,
-            name: "Red grapes",
+            product_name: "Red grapes",
             quantity: 25,
             quantity_type: "lb",
             price: 1.25,
             farmer_id: 1234,
-            farm: "Old McDonald's",
-            farm_location_street: "100 Farmer Way",
-            farm_location_city: "Farmville, NY 12345"
+            farm_name: "Old McDonald's",
+            address: "100 Farmer Way",
+            city: "Farmville",
+            state: "NY",
+            zip: 12345
         },
         {
             product_id: 4322,
-            name: "Strawberries",
+            product_name: "Strawberries",
             quantity: 20,
             quantity_type: "lb",
             price: 1.0,
             farmer_id: 1234,
-            farm: "Old McDonald's",
-            farm_location_street: "100 Farmer Way",
-            farm_location_city: "Farmville, NY 12345"
+            farm_name: "Old McDonald's",
+            address: "100 Farmer Way",
+            city: "Farmville",
+            state: "NY",
+            zip: 12345
         },
         {
             product_id: 4323,
-            name: "Apples",
+            product_name: "Apples",
             quantity: 30,
             quantity_type: "bushel",
             price: 3.0,
             farmer_id: 1234,
-            farm: "Farmer Joe's",
-            farm_location_street: "25 Moomoo Rd",
-            farm_location_city: "Farmington, NY 12346"
+            farm_name: "Farmer Joe's",
+            address: "25 Moomoo Rd",
+            city: "Farmington",
+            state: "NY",
+            zip: 12346
         }
     ]);
 
@@ -208,26 +213,26 @@ export default props => {
     const [searchTerm, setSearchTerm] = useState("");
     const [searchResults, setSearchResults] = useState(products);
 
-    useEffect(() => {
-        // API call to get available products
-        axiosWithAuth()
-            .get("farmer/product/products")
-            .then(response => {
-                console.log("Response: ", response);
-                setProducts(response.product);
-                setSearchResults(response.product);
-            })
-            .catch(err => console.log("Error: ", err));
-    }, []);
+    // useEffect(() => {
+    //     // API call to get available products
+    //     axiosWithAuth()
+    //         .get("farmer/product/products")
+    //         .then(response => {
+    //             console.log("Response: ", response);
+    //             setProducts(response.product);
+    //             setSearchResults(response.product);
+    //         })
+    //         .catch(err => console.log("Error fetching products: ", err));
+    // }, []);
 
     // for search bar
     useEffect(() => {
         const results = products.filter(item =>
-            item.farm_location_city.toLowerCase().includes(searchTerm)
+            item.city.toLowerCase().includes(searchTerm)
         );
 
         setSearchResults(results);
-    }, [searchTerm]);
+    }, [products, searchTerm]);
 
     const handleSearchBarChange = e => {
         setSearchTerm(e.target.value);
@@ -271,5 +276,5 @@ export default props => {
             </CardsContainer>
         </>
     );
-                    };
+};
 // test

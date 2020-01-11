@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 import { IoIosAddCircleOutline } from "react-icons/io";
 import Product from "./Product";
@@ -59,49 +60,50 @@ export default () => {
     const [inventory, setInventory] = useState([
         {
             product_id: 4321,
-            name: "Red grapes",
+            product_name: "Red grapes",
             quantity: 25,
-            quantity_unit: "lb",
+            quantity_type: "lb",
             price: 1.25,
             farmer_id: 1234,
-            farm: "Old McDonald's",
-            farm_location_street: "100 Farmer Way",
-            farm_location_city: "Farmville, NY 12345"
+            farm_name: "Old McDonald's",
+            address: "100 Farmer Way",
+            city: "Farmville, NY 12345",
+            state: "NY",
+            zip: 12345
         },
         {
             product_id: 4322,
-            name: "Strawberries",
+            product_name: "Strawberries",
             quantity: 20,
-            quantity_unit: "lb",
+            quantity_type: "lb",
             price: 1.0,
             farmer_id: 1234,
-            farm: "Old McDonald's",
-            farm_location_street: "100 Farmer Way",
-            farm_location_city: "Farmville, NY 12345"
+            farm_name: "Old McDonald's",
+            address: "100 Farmer Way",
+            city: "Farmville",
+            state: "NY",
+            zip: 12345
         }
     ]);
     const [modalOpen, setModalOpen] = useState(false);
     const [editItem, setEditItem] = useState({});
+    const [formFunctionality, setFormFunctionality] = useState("Add");
 
     // useEffect(() => {
-    //     axios
-    //         .get("https://farm-life.herokuapp.com/farmer/product", {
-    //             headers: {
-    //                 authorization: "AUTHORIZATION HERE"
-    //             }
-    //         })
+    //     axiosWithAuth()
+    //         .get("farmer/product")
     //         .then(response => {
     //             console.log("Response: ", response);
     //             setInventory(response.product);
     //         })
-    //         .catch(err => console.log("Error: ", err));
+    //         .catch(err => console.log("Error fetching inventory: ", err));
     // }, []);
 
     return (
         <FarmerContainer>
             {modalOpen && (
                 <Modal
-                    functionality="Update"
+                    functionality={formFunctionality}
                     item={editItem}
                     productId={editItem.product_id}
                     setModalOpen={setModalOpen}
@@ -112,12 +114,14 @@ export default () => {
                     onClick={() => {
                         setModalOpen(!modalOpen);
                         setEditItem({}); // reset editItem
+                        setFormFunctionality("Add");
                     }}
                 />
                 <p
                     onClick={() => {
                         setModalOpen(!modalOpen);
                         setEditItem({}); // reset editItem
+                        setFormFunctionality("Add");
                     }}
                 >
                     Add item
@@ -132,6 +136,7 @@ export default () => {
                             setEditItem={setEditItem}
                             setModalOpen={setModalOpen}
                             modalOpen={modalOpen}
+                            setFormFunctionality={setFormFunctionality}
                         />
                     ))}
             </CardsContainer>
