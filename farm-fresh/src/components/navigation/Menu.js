@@ -28,8 +28,7 @@ export default ({ close }) => (
             <li onClick={close}>
                 <StyledLink to="/consumer">Store</StyledLink>
             </li>
-            <li onClick={close}>
-                <StyledLink
+            <StyledLink
                     to="/farmer"
                     onClick={() => {
                         localStorage.removeItem("token");
@@ -37,7 +36,6 @@ export default ({ close }) => (
                 >
                     Sell Inventory
                 </StyledLink>
-            </li>
         </ul>
     </div>
 );

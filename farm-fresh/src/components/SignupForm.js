@@ -11,7 +11,7 @@ const SignUpCard = styled.div`
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     border-radius: 5px;
     width: 500px;
-    margin-top: 10%;
+    margin-top: 20%;
     margin-bottom: 20%;
     margin-left: 33%;
 `;
