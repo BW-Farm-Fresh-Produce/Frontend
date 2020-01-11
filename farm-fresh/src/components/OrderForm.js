@@ -259,7 +259,7 @@ const FormikOrderForm = withFormik({
         console.log("Submitting order form: ", values);
 
         axiosWithAuth()
-            .post("farmer/product/orders")
+            .post("farmer/product/orders", values)
             .then(response => {
                 console.log("Order successfully placed: ", response);
                 alert("Order successfully placed");
