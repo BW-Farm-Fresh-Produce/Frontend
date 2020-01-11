@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-
+import { axiosWithAuth } from "../utils/axiosWithAuth";
+import { Link, Route } from "react-router-dom";
 
 import { IoIosAddCircleOutline } from "react-icons/io";
 import Product from "./Product";
@@ -14,6 +15,16 @@ import {
     FormTitle
 } from "./Consumer";
 import FormikProductForm from "./ProductForm";
+import FarmerOrders from "./FarmerOrders";
+
+const StyledLink = styled(Link)`
+    text-decoration: none;
+    color: black;
+
+    &:hover {
+        text-decoration: underline;
+    }
+`;
 
 const FarmerContainer = styled.div`
     margin-top: 100px;
@@ -26,10 +37,17 @@ const AddItemContainer = styled.div`
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
+    justify-content: space-between;
 
     p {
         cursor: pointer;
     }
+`;
+
+const AddItemWrapper = styled.div`
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
 `;
 
 const AddIcon = styled(IoIosAddCircleOutline)`
@@ -38,7 +56,7 @@ const AddIcon = styled(IoIosAddCircleOutline)`
     margin-right: 0.25rem;
 `;
 
-const Modal = ({ functionality, item, productId, setModalOpen }) => {
+const Modal = ({ functionality, item, setModalOpen }) => {
     return (
         <ModalBg>
             <ModalFormContainer>
@@ -50,7 +68,7 @@ const Modal = ({ functionality, item, productId, setModalOpen }) => {
                 ) : (
                     <FormTitle>{functionality} inventory </FormTitle>
                 )}
-                <FormikProductForm {...item} />
+                <FormikProductForm {...item} functionality={functionality} />
             </ModalFormContainer>
         </ModalBg>
     );
@@ -60,70 +78,77 @@ export default () => {
     const [inventory, setInventory] = useState([
         {
             product_id: 4321,
-            name: "Red grapes",
+            product_name: "Red grapes",
             quantity: 25,
-            quantity_unit: "lb",
+            quantity_type: "lb",
             price: 1.25,
             farmer_id: 1234,
-            farm: "Old McDonald's",
-            farm_location_street: "100 Farmer Way",
-            farm_location_city: "Farmville, NY 12345"
+            farm_name: "Old McDonald's",
+            address: "100 Farmer Way",
+            city: "Farmville, NY 12345",
+            state: "NY",
+            zip: 12345
         },
         {
             product_id: 4322,
-            name: "Strawberries",
+            product_name: "Strawberries",
             quantity: 20,
-            quantity_unit: "lb",
+            quantity_type: "lb",
             price: 1.0,
             farmer_id: 1234,
-            farm: "Old McDonald's",
-            farm_location_street: "100 Farmer Way",
-            farm_location_city: "Farmville, NY 12345"
+            farm_name: "Old McDonald's",
+            address: "100 Farmer Way",
+            city: "Farmville",
+            state: "NY",
+            zip: 12345
         }
     ]);
     const [modalOpen, setModalOpen] = useState(false);
     const [editItem, setEditItem] = useState({});
+    const [formFunctionality, setFormFunctionality] = useState("Add");
 
     // useEffect(() => {
-    //     axios
-    //         .get("https://farm-life.herokuapp.com/farmer/product", {
-    //             headers: {
-    //                 authorization: "AUTHORIZATION HERE"
-    //             }
-    //         })
+    //     axiosWithAuth()
+    //         .get("farmer/product")
     //         .then(response => {
     //             console.log("Response: ", response);
     //             setInventory(response.product);
     //         })
-    //         .catch(err => console.log("Error: ", err));
+    //         .catch(err => console.log("Error fetching inventory: ", err));
     // }, []);
 
     return (
         <FarmerContainer>
             {modalOpen && (
                 <Modal
-                    functionality="Update"
+                    functionality={formFunctionality}
                     item={editItem}
                     productId={editItem.product_id}
                     setModalOpen={setModalOpen}
                 />
             )}
             <AddItemContainer>
-                <AddIcon
-                    onClick={() => {
-                        setModalOpen(!modalOpen);
-                        setEditItem({}); // reset editItem
-                    }}
-                />
-                <p
-                    onClick={() => {
-                        setModalOpen(!modalOpen);
-                        setEditItem({}); // reset editItem
-                    }}
-                >
-                    Add item
-                </p>
+                <AddItemWrapper>
+                    <AddIcon
+                        onClick={() => {
+                            setModalOpen(!modalOpen);
+                            setEditItem({}); // reset editItem
+                            setFormFunctionality("Add");
+                        }}
+                    />
+                    <p
+                        onClick={() => {
+                            setModalOpen(!modalOpen);
+                            setEditItem({}); // reset editItem
+                            setFormFunctionality("Add");
+                        }}
+                    >
+                        Add item
+                    </p>
+                </AddItemWrapper>
+                <StyledLink to="/farmer/orders">View Orders</StyledLink>
             </AddItemContainer>
+
             <CardsContainer>
                 {inventory.length !== 0 &&
                     inventory.map(product => (
@@ -133,6 +158,7 @@ export default () => {
                             setEditItem={setEditItem}
                             setModalOpen={setModalOpen}
                             modalOpen={modalOpen}
+                            setFormFunctionality={setFormFunctionality}
                         />
                     ))}
             </CardsContainer>

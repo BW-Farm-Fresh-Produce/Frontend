@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { withFormik, Form, Field } from "formik";
-import axiosWithAuth from "../utils/axiosWithAuth";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 import * as Yup from "yup";
 import { StyledInput, Button, Error } from "./StyledComponents";
-import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 const StyledForm = styled(Form)`
     width: 80%;
@@ -135,17 +134,15 @@ const OrderForm = ({ values, touched, errors, status, handleChange }) => {
             </InputContainer>
 
             <InputContainer>
-                <Label htmlFor="zipCode"></Label>
+                <Label htmlFor="zip"></Label>
                 <Input
                     type="number"
-                    name="zipCode"
+                    name="zip"
                     placeholder="Zip Code"
-                    value={values.zipCode}
+                    value={values.zip}
                     onChange={handleChange}
                 />
-                {touched.zipCode && errors.zipCode && (
-                    <ErrorMsg>{errors.zipCode}</ErrorMsg>
-                )}
+                {touched.zip && errors.zip && <ErrorMsg>{errors.zip}</ErrorMsg>}
             </InputContainer>
 
             <InputContainer>
@@ -218,7 +215,7 @@ const FormikOrderForm = withFormik({
             streetAddress: props.streetAddress || "",
             city: props.city || "",
             state: props.state || "",
-            zipCode: props.zipCode || "",
+            zip: props.zip || "",
             creditCard: props.creditCard || "",
             securityCode: props.securityCode || "",
             expiration: props.expiration || ""
@@ -235,14 +232,10 @@ const FormikOrderForm = withFormik({
         streetAddress: Yup.string().required("**Required"),
         city: Yup.string().required("**Required"),
         state: Yup.string().required("**Required"),
-        zipCode: Yup.number()
-            .integer()
-            .positive()
+        zip: Yup.string()
             .matches(zipCodeRegExp, "Invalid zip code")
             .required("**Required"),
-        creditCard: Yup.number()
-            .integer()
-            .positive()
+        creditCard: Yup.string()
             .matches(creditCardRegExp, "Invalid credit card")
             .required("**Required"),
         securityCode: Yup.number()
@@ -262,7 +255,7 @@ const FormikOrderForm = withFormik({
         console.log("Submitting order form: ", values);
 
         axiosWithAuth()
-            .post("farmer/product/orders")
+            .post("farmer/product/orders", values)
             .then(response => {
                 console.log("Order successfully placed: ", response);
                 alert("Order successfully placed");

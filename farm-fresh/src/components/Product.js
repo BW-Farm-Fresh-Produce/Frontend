@@ -1,20 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { MdEdit } from "react-icons/md";
-
-const Card = styled.div`
-    background: #ffffff;
-    border: 1px solid #ffffff;
-    box-sizing: border-box;
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.25);
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-`;
+import { Card } from "./StyledComponents";
 
 const AddIcon = styled(IoIosAddCircleOutline)`
     position: absolute;
@@ -32,11 +21,6 @@ const EditIcon = styled(MdEdit)`
     cursor: pointer;
 `;
 
-const ImageWrapper = styled.div`
-    width: 100%;
-    height: 100px;
-`;
-
 const TextContainer = styled.div`
     display: flex;
     flex-flow: row nowrap;
@@ -45,6 +29,8 @@ const TextContainer = styled.div`
     padding: 0 10px;
     text-align: left;
     line-height: 1.5rem;
+    margin-top: calc(1.75rem + 10px);
+
     h2,
     p {
         margin: 0;
@@ -58,35 +44,27 @@ const InfoWrapper = styled.div`
     line=height: 1;
 `;
 
-// const FarmInfo = styled.div`
-//     display: flex;
-//     flex-direction: column;
-//     line-height: 1;
-//     width: 50%;
-// `;
-
 const ProductName = styled.h2`
     font-size: 1.1rem;
 `;
 
-// props needed --> product.name, product.quantity, product.price, product.farmer__farm_name, product.farmer_farm_location
+// props needed --> product.product_name, product.quantity, product.price, product.farm_name, product.address, product.city, product.state, product.zip
 export default ({
-     product,
-     setAddItem,
-     setEditItem,
-     setModalOpen,
-     modalOpen    
+    product,
+    setAddItem,
+    setEditItem,
+    setModalOpen,
+    modalOpen,
+    setFormFunctionality
 }) => {
- 
     return (
-
         <Card>
             {setAddItem ? (
                 <AddIcon
                     onClick={() => {
                         setAddItem(product);
                         setModalOpen(!modalOpen);
-            
+                        setFormFunctionality("Add");
                     }}
                 />
             ) : (
@@ -94,33 +72,32 @@ export default ({
                     onClick={() => {
                         setEditItem(product);
                         setModalOpen(!modalOpen);
+                        setFormFunctionality("Update");
                     }}
                 />
             )}
-            <ImageWrapper>
-                <img alt={product.name} />
-            </ImageWrapper>
             <TextContainer>
                 <InfoWrapper>
-                    <ProductName>{product.name}</ProductName>
+                    <ProductName>{product.product_name}</ProductName>
                     {product.quantity === 1 ? (
                         <p>
-                            {product.quantity} {product.quantity_unit}
+                            {product.quantity} {product.quantity_type}
                         </p>
                     ) : (
                         <p>
-                            {product.quantity} {product.quantity_unit}
-                            s
+                            {product.quantity} {product.quantity_type}s
                         </p>
                     )}
                     <p>
-                        ${product.price} / {product.quantity_unit}
+                        ${product.price} / {product.quantity_type}
                     </p>
                 </InfoWrapper>
                 <InfoWrapper>
-                    <p>{product.farm}</p>
-                    <p>{product.farm_location_street}</p>
-                    <p>{product.farm_location_city}</p>
+                    <p>{product.farm_name}</p>
+                    <p>{product.address}</p>
+                    <p>
+                        {product.city}, {product.state} {product.zip}
+                    </p>
                 </InfoWrapper>
             </TextContainer>
         </Card>
