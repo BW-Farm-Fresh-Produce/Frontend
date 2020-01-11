@@ -9,7 +9,6 @@ const StyledLink = styled(Link)`
         text-decoration: underline;
     }
 `;
-
 export default ({ close }) => (
     <div className="menu">
         <ul>
@@ -28,14 +27,15 @@ export default ({ close }) => (
             <li onClick={close}>
                 <StyledLink to="/consumer">Store</StyledLink>
             </li>
-            <StyledLink
+             <StyledLink
                     to="/farmer"
                     onClick={() => {
                         localStorage.removeItem("token");
                     }}
                 >
                     Sell Inventory
-                </StyledLink>
+                </StyledLink> 
+               
         </ul>
     </div>
 );
