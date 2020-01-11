@@ -22,11 +22,11 @@ import Faq from './components/Faq';
 
 
 
-const styles = {
-  fontFamily: "sans-serif",
-  textAlign: "center",
-  marginTop: "40px"
-};
+// const styles = {
+//   fontFamily: "sans-serif",
+//   textAlign: "center",
+//   marginTop: "40px"
+// };
 
 const contentStyle = {
   background: "rgba(255,255,255,0)",
