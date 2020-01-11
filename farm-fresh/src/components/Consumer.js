@@ -228,7 +228,7 @@ export default props => {
     // for search bar
     useEffect(() => {
         const results = products.filter(item =>
-            item.city.toLowerCase().includes(searchTerm)
+            item.city.toLowerCase().includes(searchTerm.toLowerCase())
         );
 
         setSearchResults(results);

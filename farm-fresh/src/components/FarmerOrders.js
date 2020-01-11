@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 import OrderCard from "./OrderCard";
@@ -15,10 +15,16 @@ const Title = styled.h2`
     text-align: center;
 `;
 
+const StyledLink = styled(Link)`
+    text-decoration: none;
+    color: black;
+`;
+
 const CardsContainer = styled.div`
     display: grid;
     grid-template-columns: repeat(auto-fill, 375px);
     grid-gap: 30px;
+    margin-top: 1rem;
 `;
 
 export default ({ farmer_id }) => {
@@ -96,6 +102,7 @@ export default ({ farmer_id }) => {
     return (
         <Container>
             <Title>Orders</Title>
+            <StyledLink to="/farmer">Back to Inventory</StyledLink>
             <CardsContainer>
                 {orders !== [] &&
                     orders.map(order => (
