@@ -232,15 +232,11 @@ const FormikOrderForm = withFormik({
         streetAddress: Yup.string().required("**Required"),
         city: Yup.string().required("**Required"),
         state: Yup.string().required("**Required"),
-        zip: Yup.number()
-            .integer()
-            .positive()
-            // .matches(zipCodeRegExp, "Invalid zip code")
+        zip: Yup.string()
+            .matches(zipCodeRegExp, "Invalid zip code")
             .required("**Required"),
-        creditCard: Yup.number()
-            .integer()
-            .positive()
-            // .matches(creditCardRegExp, "Invalid credit card")s
+        creditCard: Yup.string()
+            .matches(creditCardRegExp, "Invalid credit card")
             .required("**Required"),
         securityCode: Yup.number()
             .integer()
