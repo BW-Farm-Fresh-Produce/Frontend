@@ -9,7 +9,6 @@ const StyledLink = styled(Link)`
         text-decoration: underline;
     }
 `;
-
 export default ({ close }) => (
     <div className="menu">
         <ul>
